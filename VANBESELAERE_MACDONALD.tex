@@ -1,0 +1,44 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{fancyhdr} % Import fancyhdr package
+\usepackage{lipsum} % Generate random filler text
+\usepackage{titlesec} % Load titlesec package
+\usepackage{geometry} % Access extensive page dimension controls
+
+\geometry{
+  margin = 1in % Sets equal margins for all sides (modify as desired)
+}
+
+\titleformat{\chapter}[hang]
+  {\normalfont\huge\bfseries}
+  {\thechapter\hspace{1em}}
+  {0pt}
+  {\bfseries}
+
+
+\pagestyle{fancy} % Enable custom headers and footers
+\fancyhf{} % Reset header and footer fields
+\fancyhead[RE,RO]{Nathan Vanbeselaere - Arthur Macdonald} % Top-right header field
+\renewcommand{\footrulewidth}{0pt} % Remove separator line
+
+\title{\textbf{\Huge Rapport de Projet Compilation }}
+\author{Nathan Vanbeselaere - Arthur Macdonald}
+\date{Avril 2024}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\chapter{Titre chap}
+    Blabla
+
+
+\end{document}

@@ -28,4 +28,13 @@ setup.log
 # Local OPAM switch
 _opam/
 
+# Sujet
 Pixlang.pdf
+
+# Latex compilation files
+
+VANBESELAERE_MACDONALD.aux
+VANBESELAERE_MACDONALD.log
+VANBESELAERE_MACDONALD.out
+VANBESELAERE_MACDONALD.pdf
+VANBESELAERE_MACDONALD.toc
