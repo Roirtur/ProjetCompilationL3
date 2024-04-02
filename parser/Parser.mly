@@ -17,7 +17,6 @@
 %token FLOOR
 %token FOR
 %token FOREACH
-%token FORE
 %token FROM
 %token GREEN
 %token HEAD
@@ -70,6 +69,8 @@
 %token <float> REAL
 %token <string> ID
 
+
+
 %nonassoc OR
 %nonassoc AND
 %nonassoc EQ DIFF LEQ GEQ LT GT
@@ -79,12 +80,18 @@
 %right DOT
 %right DOUBLECOLON
 
+%nonassoc IFTHEN
+%nonassoc ELSE
+
+%nonassoc BINOP
+%nonassoc UNOP
+
+
 %start <program> main
 %%
 
 main:
 | program = program EOF { program }
-| EOF { Program([],Block([],Annotation.create $loc)) }
 
 type_expression:
 | INT_TYP { Type_int }
@@ -144,15 +151,14 @@ expression:
 | COORD LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Coord(expr_1, expr_2, Annotation.create $loc) }
 | COLOR LPAREN expr_1 = expression COMMA expr_2 = expression COMMA expr_3 = expression RPAREN { Color(expr_1, expr_2, expr_3, Annotation.create $loc) }
 | PIXEL LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Pixel(expr_1, expr_2, Annotation.create $loc) }
-| expr_1 = expression binop = binary_operator expr_2 = expression { Binary_operator(binop, expr_1, expr_2, Annotation.create $loc) }
-| unaryop = unary_operator expr = expression { Unary_operator(unaryop, expr, Annotation.create $loc) }
+| expr_1 = expression binop = binary_operator expr_2 = expression %prec BINOP { Binary_operator(binop, expr_1, expr_2, Annotation.create $loc) }
+| unaryop = unary_operator expr = expression %prec UNOP { Unary_operator(unaryop, expr, Annotation.create $loc) }
 | expr = expression DOT field = field_accessor { Field_accessor(field, expr, Annotation.create $loc) }
 | LBRACKET expr_list = expression_list RBRACKET { List(expr_list, Annotation.create $loc) }
 | expr_1 = expression DOUBLECOLON expr_2 = expression { Append(expr_1, expr_2, Annotation.create $loc) }
 | LPAREN expr = expression RPAREN { expr }
 
 statement_list:
-| {[]}
 | statement = statement { [statement] }
 | statement = statement SEMICOLON statement_list = statement_list { [statement] @ statement_list }
 
@@ -161,8 +167,8 @@ statement:
 | type_e = type_expression COLON var_name = ID { Declaration(var_name, type_e, Annotation.create $loc) }
 | BLOCKSTART statement_list = statement_list BLOCKEND { Block(statement_list, Annotation.create $loc) }
 (*Check priorities for ifthenelse*)
+| IF LPAREN expr = expression RPAREN statement = statement %prec IFTHEN { IfThenElse(expr, statement, Nop, Annotation.create $loc) }
 | IF LPAREN expr = expression RPAREN statement_1 = statement ELSE statement_2 = statement { IfThenElse(expr, statement_1, statement_2, Annotation.create $loc) }
-| IF LPAREN expr = expression RPAREN statement = statement { IfThenElse(expr, statement, Nop, Annotation.create $loc) }
 (*End of check*)
 | FOR var_name = ID FROM expr_1 = expression TO expr_2 = expression STEP expr_3 = expression statement = statement { For(var_name, expr_1, expr_2, expr_3, statement, Annotation.create $loc) }
 | FOREACH var_name = ID IN expr = expression statement = statement { Foreach(var_name, expr, statement, Annotation.create $loc) } 
