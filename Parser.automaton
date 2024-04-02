@@ -4,11 +4,2323 @@ State 0:
 ## LR(1) items:
 main' -> . main [ # ]
 ## Transitions:
--- On EOF shift to state 1
--- On main shift to state 2
+-- On SET shift to state 1
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PIXEL shift to state 83
+-- On LT shift to state 84
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On EOF shift to state 136
+-- On DRAW shift to state 114
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On type_expression shift to state 119
+-- On statement shift to state 137
+-- On program shift to state 138
+-- On main shift to state 140
 ## Reductions:
+-- On EOF
+--   reduce production statement ->
+** Conflict on EOF
 
 State 1:
+## Known stack suffix:
+## SET
+## LR(1) items:
+statement -> SET . LPAREN expression COMMA expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On LPAREN shift to state 2
+## Reductions:
+
+State 2:
+## Known stack suffix:
+## SET LPAREN
+## LR(1) items:
+statement -> SET LPAREN . expression COMMA expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 74
+## Reductions:
+
+State 3:
+## Known stack suffix:
+## TRUE
+## LR(1) items:
+expression -> TRUE . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> TRUE
+
+State 4:
+## Known stack suffix:
+## TAIL
+## LR(1) items:
+unary_operator -> TAIL . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> TAIL
+
+State 5:
+## Known stack suffix:
+## SIN
+## LR(1) items:
+unary_operator -> SIN . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> SIN
+
+State 6:
+## Known stack suffix:
+## REAL_OF_INT
+## LR(1) items:
+unary_operator -> REAL_OF_INT . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> REAL_OF_INT
+
+State 7:
+## Known stack suffix:
+## REAL
+## LR(1) items:
+expression -> REAL . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> REAL
+
+State 8:
+## Known stack suffix:
+## PIXEL
+## LR(1) items:
+expression -> PIXEL . LPAREN expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On LPAREN shift to state 9
+## Reductions:
+
+State 9:
+## Known stack suffix:
+## PIXEL LPAREN
+## LR(1) items:
+expression -> PIXEL LPAREN . expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 70
+## Reductions:
+
+State 10:
+## Known stack suffix:
+## PI
+## LR(1) items:
+expression -> PI . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> PI
+
+State 11:
+## Known stack suffix:
+## NOT
+## LR(1) items:
+unary_operator -> NOT . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> NOT
+
+State 12:
+## Known stack suffix:
+## MINUS
+## LR(1) items:
+unary_operator -> MINUS . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> MINUS
+
+State 13:
+## Known stack suffix:
+## LPAREN
+## LR(1) items:
+expression -> LPAREN . expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 68
+## Reductions:
+
+State 14:
+## Known stack suffix:
+## LBRACKET
+## LR(1) items:
+expression -> LBRACKET . expression_list RBRACKET [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression_list shift to state 63
+-- On expression shift to state 65
+## Reductions:
+-- On RBRACKET
+--   reduce production expression_list ->
+
+State 15:
+## Known stack suffix:
+## INT
+## LR(1) items:
+expression -> INT . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> INT
+
+State 16:
+## Known stack suffix:
+## ID
+## LR(1) items:
+expression -> ID . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> ID
+
+State 17:
+## Known stack suffix:
+## HEAD
+## LR(1) items:
+unary_operator -> HEAD . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> HEAD
+
+State 18:
+## Known stack suffix:
+## FLOOR
+## LR(1) items:
+unary_operator -> FLOOR . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> FLOOR
+
+State 19:
+## Known stack suffix:
+## FALSE
+## LR(1) items:
+expression -> FALSE . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> FALSE
+
+State 20:
+## Known stack suffix:
+## COS
+## LR(1) items:
+unary_operator -> COS . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production unary_operator -> COS
+
+State 21:
+## Known stack suffix:
+## COORD
+## LR(1) items:
+expression -> COORD . LPAREN expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On LPAREN shift to state 22
+## Reductions:
+
+State 22:
+## Known stack suffix:
+## COORD LPAREN
+## LR(1) items:
+expression -> COORD LPAREN . expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 59
+## Reductions:
+
+State 23:
+## Known stack suffix:
+## COLOR
+## LR(1) items:
+expression -> COLOR . LPAREN expression COMMA expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On LPAREN shift to state 24
+## Reductions:
+
+State 24:
+## Known stack suffix:
+## COLOR LPAREN
+## LR(1) items:
+expression -> COLOR LPAREN . expression COMMA expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 53
+## Reductions:
+
+State 25:
+## Known stack suffix:
+## unary_operator
+## LR(1) items:
+expression -> unary_operator . expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 26
+## Reductions:
+
+State 26:
+## Known stack suffix:
+## unary_operator expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> unary_operator expression . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOT field_accessor [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOUBLECOLON expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> unary_operator expression
+** Conflict on TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND
+
+State 27:
+## Known stack suffix:
+## TIMES
+## LR(1) items:
+binary_operator -> TIMES . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> TIMES
+
+State 28:
+## Known stack suffix:
+## REM
+## LR(1) items:
+binary_operator -> REM . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> REM
+
+State 29:
+## Known stack suffix:
+## PLUS
+## LR(1) items:
+binary_operator -> PLUS . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> PLUS
+
+State 30:
+## Known stack suffix:
+## OR
+## LR(1) items:
+binary_operator -> OR . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> OR
+
+State 31:
+## Known stack suffix:
+## MINUS
+## LR(1) items:
+binary_operator -> MINUS . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> MINUS
+
+State 32:
+## Known stack suffix:
+## LT
+## LR(1) items:
+binary_operator -> LT . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> LT
+
+State 33:
+## Known stack suffix:
+## LEQ
+## LR(1) items:
+binary_operator -> LEQ . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> LEQ
+
+State 34:
+## Known stack suffix:
+## GT
+## LR(1) items:
+binary_operator -> GT . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> GT
+
+State 35:
+## Known stack suffix:
+## GEQ
+## LR(1) items:
+binary_operator -> GEQ . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> GEQ
+
+State 36:
+## Known stack suffix:
+## EQ
+## LR(1) items:
+binary_operator -> EQ . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> EQ
+
+State 37:
+## Known stack suffix:
+## expression DOUBLECOLON
+## LR(1) items:
+expression -> expression DOUBLECOLON . expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 38
+## Reductions:
+
+State 38:
+## Known stack suffix:
+## expression DOUBLECOLON expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOT field_accessor [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOUBLECOLON expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression DOUBLECOLON expression . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On DOUBLECOLON shift to state 37
+-- On binary_operator shift to state 39
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> expression DOUBLECOLON expression
+
+State 39:
+## Known stack suffix:
+## expression binary_operator
+## LR(1) items:
+expression -> expression binary_operator . expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 40
+## Reductions:
+
+State 40:
+## Known stack suffix:
+## expression binary_operator expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression binary_operator expression . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOT field_accessor [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOUBLECOLON expression [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> expression binary_operator expression
+** Conflict on TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND
+
+State 41:
+## Known stack suffix:
+## expression DOT
+## LR(1) items:
+expression -> expression DOT . field_accessor [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On Y shift to state 42
+-- On X shift to state 43
+-- On RED shift to state 44
+-- On GREEN shift to state 45
+-- On COORD shift to state 46
+-- On COLOR shift to state 47
+-- On BLUE shift to state 48
+-- On field_accessor shift to state 49
+## Reductions:
+
+State 42:
+## Known stack suffix:
+## Y
+## LR(1) items:
+field_accessor -> Y . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> Y
+
+State 43:
+## Known stack suffix:
+## X
+## LR(1) items:
+field_accessor -> X . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> X
+
+State 44:
+## Known stack suffix:
+## RED
+## LR(1) items:
+field_accessor -> RED . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> RED
+
+State 45:
+## Known stack suffix:
+## GREEN
+## LR(1) items:
+field_accessor -> GREEN . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> GREEN
+
+State 46:
+## Known stack suffix:
+## COORD
+## LR(1) items:
+field_accessor -> COORD . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> COORD
+
+State 47:
+## Known stack suffix:
+## COLOR
+## LR(1) items:
+field_accessor -> COLOR . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> COLOR
+
+State 48:
+## Known stack suffix:
+## BLUE
+## LR(1) items:
+field_accessor -> BLUE . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production field_accessor -> BLUE
+
+State 49:
+## Known stack suffix:
+## expression DOT field_accessor
+## LR(1) items:
+expression -> expression DOT field_accessor . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> expression DOT field_accessor
+
+State 50:
+## Known stack suffix:
+## DIV
+## LR(1) items:
+binary_operator -> DIV . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> DIV
+
+State 51:
+## Known stack suffix:
+## DIFF
+## LR(1) items:
+binary_operator -> DIFF . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> DIFF
+
+State 52:
+## Known stack suffix:
+## AND
+## LR(1) items:
+binary_operator -> AND . [ TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR ]
+## Transitions:
+## Reductions:
+-- On TRUE TAIL SIN REAL_OF_INT REAL PIXEL PI NOT MINUS LPAREN LBRACKET INT ID HEAD FLOOR FALSE COS COORD COLOR
+--   reduce production binary_operator -> AND
+
+State 53:
+## Known stack suffix:
+## COLOR LPAREN expression
+## LR(1) items:
+expression -> COLOR LPAREN expression . COMMA expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOT field_accessor [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COMMA shift to state 54
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 54:
+## Known stack suffix:
+## COLOR LPAREN expression COMMA
+## LR(1) items:
+expression -> COLOR LPAREN expression COMMA . expression COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 55
+## Reductions:
+
+State 55:
+## Known stack suffix:
+## COLOR LPAREN expression COMMA expression
+## LR(1) items:
+expression -> COLOR LPAREN expression COMMA expression . COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOT field_accessor [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COMMA shift to state 56
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 56:
+## Known stack suffix:
+## COLOR LPAREN expression COMMA expression COMMA
+## LR(1) items:
+expression -> COLOR LPAREN expression COMMA expression COMMA . expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 57
+## Reductions:
+
+State 57:
+## Known stack suffix:
+## COLOR LPAREN expression COMMA expression COMMA expression
+## LR(1) items:
+expression -> COLOR LPAREN expression COMMA expression COMMA expression . RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 58
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 58:
+## Known stack suffix:
+## COLOR LPAREN expression COMMA expression COMMA expression RPAREN
+## LR(1) items:
+expression -> COLOR LPAREN expression COMMA expression COMMA expression RPAREN . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> COLOR LPAREN expression COMMA expression COMMA expression RPAREN
+
+State 59:
+## Known stack suffix:
+## COORD LPAREN expression
+## LR(1) items:
+expression -> COORD LPAREN expression . COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOT field_accessor [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COMMA shift to state 60
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 60:
+## Known stack suffix:
+## COORD LPAREN expression COMMA
+## LR(1) items:
+expression -> COORD LPAREN expression COMMA . expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 61
+## Reductions:
+
+State 61:
+## Known stack suffix:
+## COORD LPAREN expression COMMA expression
+## LR(1) items:
+expression -> COORD LPAREN expression COMMA expression . RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 62
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 62:
+## Known stack suffix:
+## COORD LPAREN expression COMMA expression RPAREN
+## LR(1) items:
+expression -> COORD LPAREN expression COMMA expression RPAREN . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> COORD LPAREN expression COMMA expression RPAREN
+
+State 63:
+## Known stack suffix:
+## LBRACKET expression_list
+## LR(1) items:
+expression -> LBRACKET expression_list . RBRACKET [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On RBRACKET shift to state 64
+## Reductions:
+
+State 64:
+## Known stack suffix:
+## LBRACKET expression_list RBRACKET
+## LR(1) items:
+expression -> LBRACKET expression_list RBRACKET . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> LBRACKET expression_list RBRACKET
+
+State 65:
+## Known stack suffix:
+## expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES REM RBRACKET PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOT field_accessor [ TIMES REM RBRACKET PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES REM RBRACKET PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression_list -> expression . [ RBRACKET ]
+expression_list -> expression . COMMA expression_list [ RBRACKET ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COMMA shift to state 66
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+-- On RBRACKET
+--   reduce production expression_list -> expression
+
+State 66:
+## Known stack suffix:
+## expression COMMA
+## LR(1) items:
+expression_list -> expression COMMA . expression_list [ RBRACKET ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression_list shift to state 67
+-- On expression shift to state 65
+## Reductions:
+-- On RBRACKET
+--   reduce production expression_list ->
+
+State 67:
+## Known stack suffix:
+## expression COMMA expression_list
+## LR(1) items:
+expression_list -> expression COMMA expression_list . [ RBRACKET ]
+## Transitions:
+## Reductions:
+-- On RBRACKET
+--   reduce production expression_list -> expression COMMA expression_list
+
+State 68:
+## Known stack suffix:
+## LPAREN expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> LPAREN expression . RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 69
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 69:
+## Known stack suffix:
+## LPAREN expression RPAREN
+## LR(1) items:
+expression -> LPAREN expression RPAREN . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> LPAREN expression RPAREN
+
+State 70:
+## Known stack suffix:
+## PIXEL LPAREN expression
+## LR(1) items:
+expression -> PIXEL LPAREN expression . COMMA expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOT field_accessor [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COMMA shift to state 71
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 71:
+## Known stack suffix:
+## PIXEL LPAREN expression COMMA
+## LR(1) items:
+expression -> PIXEL LPAREN expression COMMA . expression RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 72
+## Reductions:
+
+State 72:
+## Known stack suffix:
+## PIXEL LPAREN expression COMMA expression
+## LR(1) items:
+expression -> PIXEL LPAREN expression COMMA expression . RPAREN [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 73
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 73:
+## Known stack suffix:
+## PIXEL LPAREN expression COMMA expression RPAREN
+## LR(1) items:
+expression -> PIXEL LPAREN expression COMMA expression RPAREN . [ TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND ]
+## Transitions:
+## Reductions:
+-- On TO TIMES STEP SET SEMICOLON RPAREN REM REAL_TYP RBRACKET PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COMMA COLOR BOOL BLOCKSTART BLOCKEND AND
+--   reduce production expression -> PIXEL LPAREN expression COMMA expression RPAREN
+
+State 74:
+## Known stack suffix:
+## SET LPAREN expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOT field_accessor [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF COMMA AND ]
+statement -> SET LPAREN expression . COMMA expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COMMA shift to state 75
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 75:
+## Known stack suffix:
+## SET LPAREN expression COMMA
+## LR(1) items:
+statement -> SET LPAREN expression COMMA . expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 76
+## Reductions:
+
+State 76:
+## Known stack suffix:
+## SET LPAREN expression COMMA expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+statement -> SET LPAREN expression COMMA expression . RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 77
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 77:
+## Known stack suffix:
+## SET LPAREN expression COMMA expression RPAREN
+## LR(1) items:
+statement -> SET LPAREN expression COMMA expression RPAREN . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> SET LPAREN expression COMMA expression RPAREN
+
+State 78:
+## Known stack suffix:
+## REAL_TYP
+## LR(1) items:
+type_expression -> REAL_TYP . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> REAL_TYP
+
+State 79:
+## Known stack suffix:
+## PRINT
+## LR(1) items:
+statement -> PRINT . LPAREN expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On LPAREN shift to state 80
+## Reductions:
+
+State 80:
+## Known stack suffix:
+## PRINT LPAREN
+## LR(1) items:
+statement -> PRINT LPAREN . expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 81
+## Reductions:
+
+State 81:
+## Known stack suffix:
+## PRINT LPAREN expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+statement -> PRINT LPAREN expression . RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 82
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 82:
+## Known stack suffix:
+## PRINT LPAREN expression RPAREN
+## LR(1) items:
+statement -> PRINT LPAREN expression RPAREN . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> PRINT LPAREN expression RPAREN
+
+State 83:
+## Known stack suffix:
+## PIXEL
+## LR(1) items:
+type_expression -> PIXEL . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> PIXEL
+
+State 84:
+## Known stack suffix:
+## LT
+## LR(1) items:
+program -> LT . argument_list GT statement [ EOF ]
+## Transitions:
+-- On REAL_TYP shift to state 78
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On type_expression shift to state 93
+-- On argument_list shift to state 96
+-- On argument shift to state 133
+## Reductions:
+-- On GT
+--   reduce production argument_list ->
+
+State 85:
+## Known stack suffix:
+## LIST
+## LR(1) items:
+type_expression -> LIST . LPAREN type_expression RPAREN [ RPAREN COLON ]
+## Transitions:
+-- On LPAREN shift to state 86
+## Reductions:
+
+State 86:
+## Known stack suffix:
+## LIST LPAREN
+## LR(1) items:
+type_expression -> LIST LPAREN . type_expression RPAREN [ RPAREN COLON ]
+## Transitions:
+-- On REAL_TYP shift to state 78
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On type_expression shift to state 91
+## Reductions:
+
+State 87:
+## Known stack suffix:
+## INT_TYP
+## LR(1) items:
+type_expression -> INT_TYP . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> INT_TYP
+
+State 88:
+## Known stack suffix:
+## COORD
+## LR(1) items:
+type_expression -> COORD . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> COORD
+
+State 89:
+## Known stack suffix:
+## COLOR
+## LR(1) items:
+type_expression -> COLOR . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> COLOR
+
+State 90:
+## Known stack suffix:
+## BOOL
+## LR(1) items:
+type_expression -> BOOL . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> BOOL
+
+State 91:
+## Known stack suffix:
+## LIST LPAREN type_expression
+## LR(1) items:
+type_expression -> LIST LPAREN type_expression . RPAREN [ RPAREN COLON ]
+## Transitions:
+-- On RPAREN shift to state 92
+## Reductions:
+
+State 92:
+## Known stack suffix:
+## LIST LPAREN type_expression RPAREN
+## LR(1) items:
+type_expression -> LIST LPAREN type_expression RPAREN . [ RPAREN COLON ]
+## Transitions:
+## Reductions:
+-- On RPAREN COLON
+--   reduce production type_expression -> LIST LPAREN type_expression RPAREN
+
+State 93:
+## Known stack suffix:
+## type_expression
+## LR(1) items:
+argument -> type_expression . COLON ID [ SEMICOLON GT ]
+## Transitions:
+-- On COLON shift to state 94
+## Reductions:
+
+State 94:
+## Known stack suffix:
+## type_expression COLON
+## LR(1) items:
+argument -> type_expression COLON . ID [ SEMICOLON GT ]
+## Transitions:
+-- On ID shift to state 95
+## Reductions:
+
+State 95:
+## Known stack suffix:
+## type_expression COLON ID
+## LR(1) items:
+argument -> type_expression COLON ID . [ SEMICOLON GT ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON GT
+--   reduce production argument -> type_expression COLON ID
+
+State 96:
+## Known stack suffix:
+## LT argument_list
+## LR(1) items:
+program -> LT argument_list . GT statement [ EOF ]
+## Transitions:
+-- On GT shift to state 97
+## Reductions:
+
+State 97:
+## Known stack suffix:
+## LT argument_list GT
+## LR(1) items:
+program -> LT argument_list GT . statement [ EOF ]
+## Transitions:
+-- On SET shift to state 1
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On DRAW shift to state 114
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On type_expression shift to state 119
+-- On statement shift to state 132
+## Reductions:
+-- On EOF
+--   reduce production statement ->
+
+State 98:
+## Known stack suffix:
+## IF
+## LR(1) items:
+statement -> IF . LPAREN expression RPAREN statement ELSE statement [ SEMICOLON EOF ELSE BLOCKEND ]
+statement -> IF . LPAREN expression RPAREN statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On LPAREN shift to state 99
+## Reductions:
+
+State 99:
+## Known stack suffix:
+## IF LPAREN
+## LR(1) items:
+statement -> IF LPAREN . expression RPAREN statement ELSE statement [ SEMICOLON EOF ELSE BLOCKEND ]
+statement -> IF LPAREN . expression RPAREN statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 100
+## Reductions:
+
+State 100:
+## Known stack suffix:
+## IF LPAREN expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+statement -> IF LPAREN expression . RPAREN statement ELSE statement [ SEMICOLON EOF ELSE BLOCKEND ]
+statement -> IF LPAREN expression . RPAREN statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 101
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 101:
+## Known stack suffix:
+## IF LPAREN expression RPAREN
+## LR(1) items:
+statement -> IF LPAREN expression RPAREN . statement ELSE statement [ SEMICOLON EOF ELSE BLOCKEND ]
+statement -> IF LPAREN expression RPAREN . statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On SET shift to state 1
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On DRAW shift to state 114
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On type_expression shift to state 119
+-- On statement shift to state 129
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement ->
+
+State 102:
+## Known stack suffix:
+## FOREACH
+## LR(1) items:
+statement -> FOREACH . ID IN expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On ID shift to state 103
+## Reductions:
+
+State 103:
+## Known stack suffix:
+## FOREACH ID
+## LR(1) items:
+statement -> FOREACH ID . IN expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On IN shift to state 104
+## Reductions:
+
+State 104:
+## Known stack suffix:
+## FOREACH ID IN
+## LR(1) items:
+statement -> FOREACH ID IN . expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 105
+## Reductions:
+
+State 105:
+## Known stack suffix:
+## FOREACH ID IN expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES SET SEMICOLON REM REAL_TYP PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOT field_accessor [ TIMES SET SEMICOLON REM REAL_TYP PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES SET SEMICOLON REM REAL_TYP PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COLOR BOOL BLOCKSTART BLOCKEND AND ]
+statement -> FOREACH ID IN expression . statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On SET shift to state 1
+-- On REM shift to state 28
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PLUS shift to state 29
+-- On PIXEL shift to state 83
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LIST shift to state 85
+-- On LEQ shift to state 33
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On EQ shift to state 36
+-- On DRAW shift to state 114
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On AND shift to state 52
+-- On type_expression shift to state 119
+-- On statement shift to state 128
+-- On binary_operator shift to state 39
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement ->
+
+State 106:
+## Known stack suffix:
+## FOR
+## LR(1) items:
+statement -> FOR . ID FROM expression TO expression STEP expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On ID shift to state 107
+## Reductions:
+
+State 107:
+## Known stack suffix:
+## FOR ID
+## LR(1) items:
+statement -> FOR ID . FROM expression TO expression STEP expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On FROM shift to state 108
+## Reductions:
+
+State 108:
+## Known stack suffix:
+## FOR ID FROM
+## LR(1) items:
+statement -> FOR ID FROM . expression TO expression STEP expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 109
+## Reductions:
+
+State 109:
+## Known stack suffix:
+## FOR ID FROM expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TO TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TO TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TO TIMES REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+statement -> FOR ID FROM expression . TO expression STEP expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TO shift to state 110
+-- On TIMES shift to state 27
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 110:
+## Known stack suffix:
+## FOR ID FROM expression TO
+## LR(1) items:
+statement -> FOR ID FROM expression TO . expression STEP expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 111
+## Reductions:
+
+State 111:
+## Known stack suffix:
+## FOR ID FROM expression TO expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES STEP REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES STEP REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES STEP REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+statement -> FOR ID FROM expression TO expression . STEP expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On STEP shift to state 112
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 112:
+## Known stack suffix:
+## FOR ID FROM expression TO expression STEP
+## LR(1) items:
+statement -> FOR ID FROM expression TO expression STEP . expression statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 113
+## Reductions:
+
+State 113:
+## Known stack suffix:
+## FOR ID FROM expression TO expression STEP expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES SET SEMICOLON REM REAL_TYP PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOT field_accessor [ TIMES SET SEMICOLON REM REAL_TYP PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COLOR BOOL BLOCKSTART BLOCKEND AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES SET SEMICOLON REM REAL_TYP PRINT PLUS PIXEL OR MINUS LT LIST LEQ INT_TYP IF GT GEQ FOREACH FOR EQ EOF ELSE DRAW DOUBLECOLON DOT DIV DIFF COORD COLOR BOOL BLOCKSTART BLOCKEND AND ]
+statement -> FOR ID FROM expression TO expression STEP expression . statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On SET shift to state 1
+-- On REM shift to state 28
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PLUS shift to state 29
+-- On PIXEL shift to state 83
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LIST shift to state 85
+-- On LEQ shift to state 33
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On EQ shift to state 36
+-- On DRAW shift to state 114
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On AND shift to state 52
+-- On type_expression shift to state 119
+-- On statement shift to state 127
+-- On binary_operator shift to state 39
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement ->
+
+State 114:
+## Known stack suffix:
+## DRAW
+## LR(1) items:
+statement -> DRAW . LPAREN expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On LPAREN shift to state 115
+## Reductions:
+
+State 115:
+## Known stack suffix:
+## DRAW LPAREN
+## LR(1) items:
+statement -> DRAW LPAREN . expression RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TRUE shift to state 3
+-- On TAIL shift to state 4
+-- On SIN shift to state 5
+-- On REAL_OF_INT shift to state 6
+-- On REAL shift to state 7
+-- On PIXEL shift to state 8
+-- On PI shift to state 10
+-- On NOT shift to state 11
+-- On MINUS shift to state 12
+-- On LPAREN shift to state 13
+-- On LBRACKET shift to state 14
+-- On INT shift to state 15
+-- On ID shift to state 16
+-- On HEAD shift to state 17
+-- On FLOOR shift to state 18
+-- On FALSE shift to state 19
+-- On COS shift to state 20
+-- On COORD shift to state 21
+-- On COLOR shift to state 23
+-- On unary_operator shift to state 25
+-- On expression shift to state 116
+## Reductions:
+
+State 116:
+## Known stack suffix:
+## DRAW LPAREN expression
+## LR(1) items:
+expression -> expression . binary_operator expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOT field_accessor [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+expression -> expression . DOUBLECOLON expression [ TIMES RPAREN REM PLUS OR MINUS LT LEQ GT GEQ EQ DOUBLECOLON DOT DIV DIFF AND ]
+statement -> DRAW LPAREN expression . RPAREN [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On TIMES shift to state 27
+-- On RPAREN shift to state 117
+-- On REM shift to state 28
+-- On PLUS shift to state 29
+-- On OR shift to state 30
+-- On MINUS shift to state 31
+-- On LT shift to state 32
+-- On LEQ shift to state 33
+-- On GT shift to state 34
+-- On GEQ shift to state 35
+-- On EQ shift to state 36
+-- On DOUBLECOLON shift to state 37
+-- On DOT shift to state 41
+-- On DIV shift to state 50
+-- On DIFF shift to state 51
+-- On AND shift to state 52
+-- On binary_operator shift to state 39
+## Reductions:
+
+State 117:
+## Known stack suffix:
+## DRAW LPAREN expression RPAREN
+## LR(1) items:
+statement -> DRAW LPAREN expression RPAREN . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> DRAW LPAREN expression RPAREN
+
+State 118:
+## Known stack suffix:
+## BLOCKSTART
+## LR(1) items:
+statement -> BLOCKSTART . statement_list BLOCKEND [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On SET shift to state 1
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On DRAW shift to state 114
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On type_expression shift to state 119
+-- On statement_list shift to state 122
+-- On statement shift to state 124
+## Reductions:
+-- On SEMICOLON BLOCKEND
+--   reduce production statement ->
+-- On BLOCKEND
+--   reduce production statement_list ->
+** Conflict on BLOCKEND
+
+State 119:
+## Known stack suffix:
+## type_expression
+## LR(1) items:
+statement -> type_expression . COLON ID [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On COLON shift to state 120
+## Reductions:
+
+State 120:
+## Known stack suffix:
+## type_expression COLON
+## LR(1) items:
+statement -> type_expression COLON . ID [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On ID shift to state 121
+## Reductions:
+
+State 121:
+## Known stack suffix:
+## type_expression COLON ID
+## LR(1) items:
+statement -> type_expression COLON ID . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> type_expression COLON ID
+
+State 122:
+## Known stack suffix:
+## BLOCKSTART statement_list
+## LR(1) items:
+statement -> BLOCKSTART statement_list . BLOCKEND [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On BLOCKEND shift to state 123
+## Reductions:
+
+State 123:
+## Known stack suffix:
+## BLOCKSTART statement_list BLOCKEND
+## LR(1) items:
+statement -> BLOCKSTART statement_list BLOCKEND . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> BLOCKSTART statement_list BLOCKEND
+
+State 124:
+## Known stack suffix:
+## statement
+## LR(1) items:
+statement_list -> statement . [ BLOCKEND ]
+statement_list -> statement . SEMICOLON statement_list [ BLOCKEND ]
+## Transitions:
+-- On SEMICOLON shift to state 125
+## Reductions:
+-- On BLOCKEND
+--   reduce production statement_list -> statement
+
+State 125:
+## Known stack suffix:
+## statement SEMICOLON
+## LR(1) items:
+statement_list -> statement SEMICOLON . statement_list [ BLOCKEND ]
+## Transitions:
+-- On SET shift to state 1
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On DRAW shift to state 114
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On type_expression shift to state 119
+-- On statement_list shift to state 126
+-- On statement shift to state 124
+## Reductions:
+-- On SEMICOLON BLOCKEND
+--   reduce production statement ->
+-- On BLOCKEND
+--   reduce production statement_list ->
+** Conflict on BLOCKEND
+
+State 126:
+## Known stack suffix:
+## statement SEMICOLON statement_list
+## LR(1) items:
+statement_list -> statement SEMICOLON statement_list . [ BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On BLOCKEND
+--   reduce production statement_list -> statement SEMICOLON statement_list
+
+State 127:
+## Known stack suffix:
+## FOR ID FROM expression TO expression STEP expression statement
+## LR(1) items:
+statement -> FOR ID FROM expression TO expression STEP expression statement . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> FOR ID FROM expression TO expression STEP expression statement
+
+State 128:
+## Known stack suffix:
+## FOREACH ID IN expression statement
+## LR(1) items:
+statement -> FOREACH ID IN expression statement . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> FOREACH ID IN expression statement
+
+State 129:
+## Known stack suffix:
+## IF LPAREN expression RPAREN statement
+## LR(1) items:
+statement -> IF LPAREN expression RPAREN statement . ELSE statement [ SEMICOLON EOF ELSE BLOCKEND ]
+statement -> IF LPAREN expression RPAREN statement . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On ELSE shift to state 130
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> IF LPAREN expression RPAREN statement
+** Conflict on ELSE
+
+State 130:
+## Known stack suffix:
+## IF LPAREN expression RPAREN statement ELSE
+## LR(1) items:
+statement -> IF LPAREN expression RPAREN statement ELSE . statement [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+-- On SET shift to state 1
+-- On REAL_TYP shift to state 78
+-- On PRINT shift to state 79
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On IF shift to state 98
+-- On FOREACH shift to state 102
+-- On FOR shift to state 106
+-- On DRAW shift to state 114
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On BLOCKSTART shift to state 118
+-- On type_expression shift to state 119
+-- On statement shift to state 131
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement ->
+
+State 131:
+## Known stack suffix:
+## IF LPAREN expression RPAREN statement ELSE statement
+## LR(1) items:
+statement -> IF LPAREN expression RPAREN statement ELSE statement . [ SEMICOLON EOF ELSE BLOCKEND ]
+## Transitions:
+## Reductions:
+-- On SEMICOLON EOF ELSE BLOCKEND
+--   reduce production statement -> IF LPAREN expression RPAREN statement ELSE statement
+
+State 132:
+## Known stack suffix:
+## LT argument_list GT statement
+## LR(1) items:
+program -> LT argument_list GT statement . [ EOF ]
+## Transitions:
+## Reductions:
+-- On EOF
+--   reduce production program -> LT argument_list GT statement
+
+State 133:
+## Known stack suffix:
+## argument
+## LR(1) items:
+argument_list -> argument . [ GT ]
+argument_list -> argument . SEMICOLON argument_list [ GT ]
+## Transitions:
+-- On SEMICOLON shift to state 134
+## Reductions:
+-- On GT
+--   reduce production argument_list -> argument
+
+State 134:
+## Known stack suffix:
+## argument SEMICOLON
+## LR(1) items:
+argument_list -> argument SEMICOLON . argument_list [ GT ]
+## Transitions:
+-- On REAL_TYP shift to state 78
+-- On PIXEL shift to state 83
+-- On LIST shift to state 85
+-- On INT_TYP shift to state 87
+-- On COORD shift to state 88
+-- On COLOR shift to state 89
+-- On BOOL shift to state 90
+-- On type_expression shift to state 93
+-- On argument_list shift to state 135
+-- On argument shift to state 133
+## Reductions:
+-- On GT
+--   reduce production argument_list ->
+
+State 135:
+## Known stack suffix:
+## argument SEMICOLON argument_list
+## LR(1) items:
+argument_list -> argument SEMICOLON argument_list . [ GT ]
+## Transitions:
+## Reductions:
+-- On GT
+--   reduce production argument_list -> argument SEMICOLON argument_list
+
+State 136:
 ## Known stack suffix:
 ## EOF
 ## LR(1) items:
@@ -18,7 +2330,36 @@ main -> EOF . [ # ]
 -- On #
 --   reduce production main -> EOF
 
-State 2:
+State 137:
+## Known stack suffix:
+## statement
+## LR(1) items:
+program -> statement . [ EOF ]
+## Transitions:
+## Reductions:
+-- On EOF
+--   reduce production program -> statement
+
+State 138:
+## Known stack suffix:
+## program
+## LR(1) items:
+main -> program . EOF [ # ]
+## Transitions:
+-- On EOF shift to state 139
+## Reductions:
+
+State 139:
+## Known stack suffix:
+## program EOF
+## LR(1) items:
+main -> program EOF . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   reduce production main -> program EOF
+
+State 140:
 ## Known stack suffix:
 ## main
 ## LR(1) items:

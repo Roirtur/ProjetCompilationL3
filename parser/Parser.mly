@@ -70,31 +70,91 @@
 %token <float> REAL
 %token <string> ID
 
+%nonassoc OR
+%nonassoc AND
+%nonassoc EQ DIFF LEQ GEQ LT GT
+%left PLUS MINUS 
+%left TIMES DIV REM
+
+%right DOT
+%right DOUBLECOLON
 
 %start <program> main
 %%
 
 main:
+| program = program EOF { program }
 | EOF { Program([],Block([],Annotation.create $loc)) }
 
 type_expression:
-| {}
-
-binary_operator:
-| {}
-
-unary_operator:
-| {}
+| INT_TYP { Type_int }
+| REAL_TYP { Type_real }
+| BOOL { Type_bool }
+| COORD { Type_coord }
+| COLOR { Type_color }
+| PIXEL { Type_pixel }
+| LIST LPAREN type_e = type_expression RPAREN { Type_list(type_e) }
 
 field_accessor:
-| {}
+| COLOR { Color_field }
+| COORD { Coord_field }
+| X { X_field }
+| Y { Y_field }
+| RED { Red_field }
+| GREEN { Green_field }
+| BLUE { Blue_field }
+
+unary_operator:
+| MINUS { Opposite }
+| NOT { Not }
+| HEAD { Head }
+| TAIL { Tail }
+| FLOOR { Floor }
+| REAL_OF_INT { Real_of_int }
+| COS { Cos }
+| SIN { Sin }
+
+binary_operator:
+| PLUS { Plus }
+| MINUS { Minus }
+| TIMES { Times }
+| DIV { Div }
+| REM { Rem }
+| AND { And }
+| OR { Or }
+| EQ { Equal }
+| DIFF { Diff }
+| LT { Lt }
+| GT { Gt }
+| LEQ { Leq }
+| GEQ { Geq }
+
+expression_list:
+| {[]}
+| expr = expression { [expr] }
+| expr = expression COMMA expr_list = expression_list { [expr] @ expr_list }
 
 expression:
-| {}
+| var_int = INT { Const_int(var_int, Annotation.create $loc) }
+| var_real = REAL { Const_real(var_real, Annotation.create $loc) }
+| PI { Const_real(Float.pi, Annotation.create $loc) }
+| TRUE { Const_bool(true, Annotation.create $loc) }
+| FALSE { Const_bool(false, Annotation.create $loc) }
+| var_name = ID { Variable(var_name, Annotation.create $loc) }
+| COORD LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Coord(expr_1, expr_2, Annotation.create $loc) }
+| COLOR LPAREN expr_1 = expression COMMA expr_2 = expression COMMA expr_3 = expression RPAREN { Color(expr_1, expr_2, expr_3, Annotation.create $loc) }
+| PIXEL LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Pixel(expr_1, expr_2, Annotation.create $loc) }
+| expr_1 = expression binop = binary_operator expr_2 = expression { Binary_operator(binop, expr_1, expr_2, Annotation.create $loc) }
+| unaryop = unary_operator expr = expression { Unary_operator(unaryop, expr, Annotation.create $loc) }
+| expr = expression DOT field = field_accessor { Field_accessor(field, expr, Annotation.create $loc) }
+| LBRACKET expr_list = expression_list RBRACKET { List(expr_list, Annotation.create $loc) }
+| expr_1 = expression DOUBLECOLON expr_2 = expression { Append(expr_1, expr_2, Annotation.create $loc) }
+| LPAREN expr = expression RPAREN { expr }
 
 statement_list:
 | {[]}
-| statement = statement statement_list = statement_list { [statement] @ statement_list }
+| statement = statement { [statement] }
+| statement = statement SEMICOLON statement_list = statement_list { [statement] @ statement_list }
 
 statement:
 | SET LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Affectation(expr_1, expr_2, Annotation.create $loc) }
@@ -105,14 +165,18 @@ statement:
 | IF LPAREN expr = expression RPAREN statement = statement { IfThenElse(expr, statement, Nop, Annotation.create $loc) }
 (*End of check*)
 | FOR var_name = ID FROM expr_1 = expression TO expr_2 = expression STEP expr_3 = expression statement = statement { For(var_name, expr_1, expr_2, expr_3, statement, Annotation.create $loc) }
-(*TO CONTINUE*)
+| FOREACH var_name = ID IN expr = expression statement = statement { Foreach(var_name, expr, statement, Annotation.create $loc) } 
+| DRAW LPAREN expr = expression RPAREN { Draw_pixel(expr, Annotation.create $loc) }
+| PRINT LPAREN expr = expression RPAREN { Print(expr, Annotation.create $loc) }
+| { Nop }
 
 argument:
 | type_e = type_expression COLON var_name = ID { Argument(var_name, type_e, Annotation.create $loc) }
 
 argument_list:
 | {[]}
-| argument = argument argument_list = argument_list { [argument] @ argument_list }
+| argument = argument { [argument] }
+| argument = argument SEMICOLON argument_list = argument_list { [argument] @ argument_list }
 
 program:
 | LT argument_list = argument_list GT statement = statement { Program(argument_list, statement) }
