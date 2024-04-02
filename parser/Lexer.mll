@@ -70,9 +70,6 @@ rule token = parse
     | ","               { COMMA }
     | ";"               { SEMICOLON }
 
-    (* Spaces *)
-    | [' ' '\t' '\r' '\n']   {token lexbuf}
-
     (* Commentaries *)
     | "//" [^ '\n']* '\n' {Lexing.new_line lexbuf; token lexbuf}
     | "/*" {commentary lexbuf}
@@ -87,6 +84,11 @@ rule token = parse
     (* Floats *)
     | (digit)* "." (digit)* as s { REAL(float_of_string s) }
     
+    (* Spaces *)
+    | [' ' '\t' '\r']   {token lexbuf}
+    | '\n'              {Lexing.new_line lexbuf; token lexbuf}
+
+    (* End of file *)
     | eof               { EOF }
     | _ as s            { let pos = Lexing.lexeme_start_p lexbuf in raise (Error(Format.sprintf "Line %d, char %d ,Read: '%c'. It is not an acceptable character" pos.pos_lnum (pos.pos_cnum - pos.pos_bol +1) s)) }
 
