@@ -50,12 +50,12 @@ rule token = parse
     | "$<"              { BLOCKSTART }
     | ">$"              { BLOCKEND }
     | "+"               { PLUS }
-    | "-"               { SUB }
-    | "*"               { MUL }
+    | "-"               { MINUS }
+    | "*"               { TIMES }
     | "/"               { DIV }
-    | "%"               { MOD }
+    | "%"               { REM }
     | "="               { EQ }
-    | "<>"              { NEQ }
+    | "<>"              { DIFF }
     | "<="              { LEQ }
     | ">="              { GEQ }
     | "<"               { LT }

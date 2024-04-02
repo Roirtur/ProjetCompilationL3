@@ -45,12 +45,12 @@
 %token BLOCKSTART
 %token BLOCKEND
 %token PLUS
-%token SUB
-%token MUL
+%token MINUS
+%token TIMES
 %token DIV
-%token MOD
+%token REM
 %token EQ
-%token NEQ
+%token DIFF
 %token LEQ
 %token GEQ
 %token LT
@@ -76,3 +76,44 @@
 
 main:
 | EOF { Program([],Block([],Annotation.create $loc)) }
+
+type_expression:
+| {}
+
+binary_operator:
+| {}
+
+unary_operator:
+| {}
+
+field_accessor:
+| {}
+
+expression:
+| {}
+
+statement_list:
+| {[]}
+| statement = statement statement_list = statement_list { [statement] @ statement_list }
+
+statement:
+| SET LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Affectation(expr_1, expr_2, Annotation.create $loc) }
+| type_e = type_expression COLON var_name = ID { Declaration(var_name, type_e, Annotation.create $loc) }
+| BLOCKSTART statement_list = statement_list BLOCKEND { Block(statement_list, Annotation.create $loc) }
+(*Check priorities for ifthenelse*)
+| IF LPAREN expr = expression RPAREN statement_1 = statement ELSE statement_2 = statement { IfThenElse(expr, statement_1, statement_2, Annotation.create $loc) }
+| IF LPAREN expr = expression RPAREN statement = statement { IfThenElse(expr, statement, Nop, Annotation.create $loc) }
+(*End of check*)
+| FOR var_name = ID FROM expr_1 = expression TO expr_2 = expression STEP expr_3 = expression statement = statement { For(var_name, expr_1, expr_2, expr_3, statement, Annotation.create $loc) }
+(*TO CONTINUE*)
+
+argument:
+| type_e = type_expression COLON var_name = ID { Argument(var_name, type_e, Annotation.create $loc) }
+
+argument_list:
+| {[]}
+| argument = argument argument_list = argument_list { [argument] @ argument_list }
+
+program:
+| LT argument_list = argument_list GT statement = statement { Program(argument_list, statement) }
+| statement = statement { Program([], statement) }
