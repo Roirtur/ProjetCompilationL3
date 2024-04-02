@@ -166,10 +166,8 @@ statement:
 | SET LPAREN expr_1 = expression COMMA expr_2 = expression RPAREN { Affectation(expr_1, expr_2, Annotation.create $loc) }
 | type_e = type_expression COLON var_name = ID { Declaration(var_name, type_e, Annotation.create $loc) }
 | BLOCKSTART statement_list = statement_list BLOCKEND { Block(statement_list, Annotation.create $loc) }
-(*Check priorities for ifthenelse*)
 | IF LPAREN expr = expression RPAREN statement = statement %prec IFTHEN { IfThenElse(expr, statement, Nop, Annotation.create $loc) }
 | IF LPAREN expr = expression RPAREN statement_1 = statement ELSE statement_2 = statement { IfThenElse(expr, statement_1, statement_2, Annotation.create $loc) }
-(*End of check*)
 | FOR var_name = ID FROM expr_1 = expression TO expr_2 = expression STEP expr_3 = expression statement = statement { For(var_name, expr_1, expr_2, expr_3, statement, Annotation.create $loc) }
 | FOREACH var_name = ID IN expr = expression statement = statement { Foreach(var_name, expr, statement, Annotation.create $loc) } 
 | DRAW LPAREN expr = expression RPAREN { Draw_pixel(expr, Annotation.create $loc) }
