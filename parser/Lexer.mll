@@ -27,13 +27,13 @@ rule token = parse
     | "Head"            { HEAD }
     | "If"              { IF }
     | "In"              { IN }
-    | "Int"             { INT }
+    | "Int"             { INT_TYP } 
     | "List"            { LIST }
     | "Not"             { NOT }
     | "Or"              { OR }
     | "Pixel"           { PIXEL }
     | "Print"           { PRINT }
-    | "Real"            { REAL }
+    | "Real"            { REAL_TYP }
     | "Real_of_int"     { REAL_OF_INT }
     | "Red"             { RED }
     | "Set"             { SET }
@@ -51,7 +51,7 @@ rule token = parse
     | ">$"              { BLOCKEND }
     | "+"               { PLUS }
     | "-"               { SUB }
-    | "*"               { TIMES }
+    | "*"               { MUL }
     | "/"               { DIV }
     | "%"               { MOD }
     | "="               { EQ }
