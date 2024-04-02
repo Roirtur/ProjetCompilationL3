@@ -65,6 +65,8 @@ let rec renaming_statement (statement, counter_env) =
 
 let renaming (program) =
    let name_counter = Environment.new_environment () in
-   match program with
-    | Program (arg_list, statement) -> Program (renaming_arg_list (arg_list, name_counter), renaming_statement (statement, name_counter))
+   let _ = (match program with
+    | Program (arg_list, statement) -> Program (renaming_arg_list (arg_list, name_counter), renaming_statement (statement, name_counter)))
+   in
+   program
  
