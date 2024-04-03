@@ -8,6 +8,7 @@
 \usepackage{lipsum} % Generate random filler text
 \usepackage{titlesec} % Load titlesec package
 \usepackage{geometry} % Access extensive page dimension controls
+\usepackage{listings}
 
 \geometry{
   margin = 1in % Sets equal margins for all sides (modify as desired)
@@ -44,36 +45,46 @@
         Pour traiter les commentaires sur plusieurs lignes, on crée un nouvel état dans lequel on incrémente le buffer à chaque retour a la ligne et qui s'arrete seulement lorsqu'il rencotre les charactères "*/". 
 
     \section*{Questions sur le Parser}
-
-    Questions `a faire apparaˆıtre dans le document Dans votre document, vous pr´ecise-
-    rez les difficult´es rencontr´ees si votre parseur n’accepte pas tout ce qui est d´ecrit ici.
-    Vous pouvez bien ´evidemment jouer avec menhir pour r´epondre `a ces questions.
-    1. On consid`ere la s´equence suivante : If #expr# If #expr# #stmt# Else #stmt#
-    On consid`ere pour cette question que #expr# et #stmt# sont des terminaux (i.e., on
-    ne cherchera pas `a les ≪´etendre≫).
-    9
-    (a) Donnez les deux arbres de d´erivations possible de cette s´equence dans la gram-
-    maire d´ecrite plus haut.
-    (b) Donnez l’´etat de l’automate LR0 o`u apparaˆıt le conflit qui montre l’existence
-    de ces deux arbres.
-    (c) Quelle annotation permet d’obtenir l’arbre coh´erent avec la priorit´e d´ecrite dans
-    ce document ?
-    (d) Pouvez-vous via une annotation obtenir le comportement inverse ? Pourquoi ?
-    2. Choisissez un conflit shift-reduce possible dans votre grammaire sans annotation (qui
-    n’est pas celui de la question pr´ec´edente), et expliquez quelles annotations de priorit´e
-    vous avez mis pour le r´esoudre, et son effet sur les arbres accept´es (quels arbres sont
-    privil´egi´es, lesquels sont ignor´es). Vous illustrerez un exemple o`u ce conflit pourrait
-    arriver et les deux arbres mis en jeu via une s´equence de tokens
-
+blabla  
     \section*{Questions passe renommage}
-    Questions `a faire apparaˆıtre dans le document Dans votre document, vous pr´ecise-
-    rez les difficult´es rencontr´ees si votre renommage n’effectue pas tout ce qui est d´ecrit ici.
-    1. Pourquoi n’est-il pas gˆenant que dans deux blocs disjoints (pas l’un dans l’autre) un
-    mˆeme nom soit utilis´e pour des variables locales `a ces blocs ?
-    2. Dans le programme suivant (il s’agit du programme renaming.pix, qui n’a pas
-    d’int´erˆet particulier autre que pour cet exercice), indiquez comment le renommage
-    des variables sera effectu´e :
+    1. Pourquoi n'est-il pas gênant que dans deux blocs disjoints (pas l'un dans l'autre) un même nom soit utilisé pour des variables locales à ces blocs ?\\ 
+    
+    \quad Il n'est pas gênant que dans deux blocs disjoints un même nom soit utilisé pour des variables locales à ces blocs car les variables locales sont déclarées dans des environnements différents. Ainsi, les variables locales de deux blocs disjoints n'ont pas de lien entre elles et ne peuvent pas être confondues.\\
 
+    2. Dans le programme suivant (il s'agit du programme renaming.pix, qui n'a pas d'intérêt particulier autre que pour cet exercice), indiquez comment le renommage des variables sera effectué :\\
+    
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+    Program after analysis:
+    Arguments <
+      Int : x;
+      Real : y
+      >
+    $<
+        Set(x, (2*x));
+        Real : x#1;
+        Set(x#1, (2.*y));
+        Int : y#1;
+        Set(y#1, Floor(x#1));
+        $<
+            Int : x#2;
+            Set(x#2, (2*y#1));
+            Int : y#2;
+            Set(y#2, (2*x#2));
+            
+        >$;
+        Set(y#1, (2*y#1));
+        $<
+            Coord : x#2;
+            Set(x#2, Coord(y#1, y#1));
+            Color : y#2;
+            Set(y#2, Color(x#2.X, x#2.X, x#2.X));
+            Draw_pixel(Pixel(x#2, y#2));
+            
+        >$;
+        Set(x#1, (2.2*x#1));
+        
+    >$
+    \end{lstlisting}
 
 \chapter*{Difficultées rencotrées}
     Blabla
