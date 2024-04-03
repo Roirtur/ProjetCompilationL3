@@ -1,19 +1,8 @@
 open Util
 open Ast
 
-(* Codez ici la passe de renommage de termes.
-
-   Cette passe permet de simplifier grandement la gestion des passes suivantes, et de l’interprétation, en assurant qu’un nom de variable 
+(* Cette passe permet de simplifier grandement la gestion des passes suivantes, et de l’interprétation, en assurant qu’un nom de variable 
    n’est jamais réutilisé dans la même portée de déclaration.
-
-   Pour cela, on va modifier le programme en, pour chaque nom, gardant un nombre correspondant son nombre de redéfinition, et en renommant 
-   l’occurence de chaque nom par un identifiant unique (son nom, suivi de son nombre d’occurence, avec un séparateur interdit dans le 
-   langage (pour empêcher les redéfinitions)).
-
-   Comme seule la portée des variables est importante, dans deux blocs disjoints, il est possible de réutiliser un même nom.
-
-   Pour obtenir ce résultat, il sera nécessaire de copier les environnement avant d’évaluer des sous-blocs (puisqu’en sortant d’un bloc, 
-   il est possible de continuer à utiliser un nom défini plus haut).
 
    Attention, l’interpréteur ne fonctionnera pas correctement en cas de redéfinition si vous n’effectuez pas correctement cette passe.*)
 
@@ -32,8 +21,9 @@ let rec renaming_expression (expression, counter_env) =
    | Color (r, g, b, anno) -> Color (renaming_expression (r, counter_env), renaming_expression (g, counter_env), renaming_expression (b, counter_env), anno)
    | Pixel (x, y, anno) -> Pixel (renaming_expression (x, counter_env), renaming_expression (y, counter_env), anno)
    | Variable (name, anno) -> (match (Environment.get counter_env name) with
-      | None -> Environment.add counter_env name 0; Variable (name, anno)
-      | Some value -> Environment.modify counter_env name (value + 1); Variable ((name ^ "#" ^ (string_of_int (value + 1))), anno)
+      | None -> Variable (name, anno)
+      | Some value when value = 0 -> Variable (name, anno)
+      | Some value -> Variable ((name ^ "#" ^ (string_of_int (value + 1))), anno)
    )
    | Binary_operator (op, e1, e2, anno) -> Binary_operator (op, renaming_expression (e1, counter_env), renaming_expression (e2, counter_env), anno)
    | Unary_operator (op, e, anno) -> Unary_operator (op, renaming_expression (e, counter_env), anno)
@@ -65,8 +55,8 @@ let rec renaming_statement (statement, counter_env) =
 
 let renaming (program) =
    let name_counter = Environment.new_environment () in
-   let _ = (match program with
+   let new_prog = (match program with
     | Program (arg_list, statement) -> Program (renaming_arg_list (arg_list, name_counter), renaming_statement (statement, name_counter)))
-   in
-   program
+   in new_prog
+
  
