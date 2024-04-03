@@ -33,7 +33,7 @@ let rec renaming_expression (expression, counter_env) =
 
 let rec renaming_statement (statement, counter_env) =
   match statement with
-   | Affectation (name, expression, anno) -> Affectation (name, renaming_expression (expression, counter_env), anno)
+   | Affectation (expr1, expr2, anno) -> Affectation (renaming_expression (expr1, counter_env), renaming_expression (expr2, counter_env), anno)
    | Declaration(id, typ, anno) -> (match (Environment.get counter_env id) with
       | None -> Environment.add counter_env id 0; Declaration(id, typ, anno)
       | Some value -> Environment.modify counter_env id (value + 1); Declaration((id ^ "#" ^ (string_of_int (value + 1))), typ, anno)
