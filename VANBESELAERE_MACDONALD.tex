@@ -1,6 +1,7 @@
 \documentclass{report}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{caption}
 \usepackage{blindtext}
 \usepackage{hyperref}
 \usepackage{subcaption}
@@ -9,6 +10,7 @@
 \usepackage{titlesec} % Load titlesec package
 \usepackage{geometry} % Access extensive page dimension controls
 \usepackage{listings}
+\usepackage{bookmark}
 
 \geometry{
   margin = 1in % Sets equal margins for all sides (modify as desired)
@@ -38,16 +40,76 @@
 \tableofcontents
 \newpage
 
-\chapter*{Réponses aux questions}
-    \section*{Questions sur le Lexer}
+\chapter{Réponses aux questions}
 
-        Nous n'avons pas rencotrées de difficultées pour le Lexer.\\
+    \section{Questions sur le Lexer}
+
         Pour traiter les commentaires sur plusieurs lignes, on crée un nouvel état dans lequel on incrémente le buffer à chaque retour a la ligne et qui s'arrete seulement lorsqu'il rencotre les charactères "*/". 
 
-    \section*{Questions sur le Parser}
-blabla  
-    \section*{Questions passe renommage}
-    1. Pourquoi n'est-il pas gênant que dans deux blocs disjoints (pas l'un dans l'autre) un même nom soit utilisé pour des variables locales à ces blocs ?\\ 
+    \section{Questions sur le Parser}
+    
+    \quad 1. On consid`ere la séquence suivante : If \#expr\# If \#expr\# \#stmt\# Else \#stmt\#
+\quad On consid`ere pour cette question que \#expr\# et \#stmt\# sont des terminaux (i.e., onne cherchera pas à les "étendre").\\
+    
+    \quad (a) Donnez les deux arbres de dérivations possible de cette séquence dans la gram-
+    maire décrite plus haut.
+
+    \begin{figure}[h]
+        \centering
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{ArbreIFIFELSE1.png}
+        \caption{Arbre 1}
+      \end{subfigure}
+      \hspace{1cm}
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{ArbreIFIFELSE2.png}
+        \caption{Arbre 2}
+      \end{subfigure}
+    \end{figure}
+
+    \quad (b) Donnez l'état de l'automate LR0 o`u apparaît le conflit qui montre l'existence
+    de ces deux arbres.\\
+
+    \quad L'état de l'automate LR(0) où apparaît le conflit qui montre l'existence de ces deux arbres est celui où l'analyseur doit choisir entre reduce avec un second If ou shift avec un Else.\\
+
+    \quad (c) Quelle annotation permet d'obtenir l'arbre cohérent avec la priorité décrite dans
+    ce document ?\\
+
+    \quad  Pour obtenir un arbre cohérent avec la priorité décrite dans le document, il faut ajouter l'annotation "\%nonassoc ELSE” pour que le Else se rattache toujours au If non-terminé le plus proche puis “\%nonassoc IFELSE” avec “\%proc IFTHEN” sur la règle IF sans ELSE. Ainsi, cela nous permet d'obtenir un seul et unique arbre.\\
+
+    \quad (d) Pouvez-vous via une annotation obtenir le comportement inverse ? Pourquoi ?\\
+
+    \quad Non, il n'est pas possible d'obtenir le comportement inverse via une annotation car si l'on priorise la règle IF sans ELSE, on se retrouvera à un moment donné avec un ELSE libre qui ne se relie à aucune configuration de l'automate.\\
+
+    \quad 2. Choisissez un conflit shift-reduce possible dans votre grammaire sans annotation (qui
+    n'est pas celui de la question précédente), et expliquez quelles annotations de priorité
+    vous avez mis pour le résoudre, et son effet sur les arbres acceptés (quels arbres sont
+    privilégiés, lesquels sont ignorés). Vous illustrerez un exemple o`u ce conflit pourrait
+    arriver et les deux arbres mis en jeu via une séquence de tokens.\\
+
+    \quad Les operateurs binaires BINOP (par exemple PLUS) ont des conflits shift reduce avec les expressions.\\
+
+    \quad Exemple avec "\#expr\# PLUS \#expr\# PLUS \#expr\#"  :\\
+
+    \begin{figure}[h]
+        \centering
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{ArbrePLUSPLUS1.png}
+        \caption{Arbre 1}
+      \end{subfigure}
+      \hspace{1cm}
+      \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{ArbrePLUSPLUS2.png}
+        \caption{Arbre 2}
+      \end{subfigure}
+    \end{figure}
+    
+    Pour résoudre ce conflit, on ajoute les annotations "\%nonassoc BINOP" et "\%left PLUS" pour donner la priorité au shift ainsi seul l'Arbre 1 sera accepté.\\
+
+    \newpage
+
+    \section{Questions passe renommage}
+    \quad 1. Pourquoi n'est-il pas gênant que dans deux blocs disjoints (pas l'un dans l'autre) un même nom soit utilisé pour des variables locales à ces blocs ?\\ 
     
     \quad Il n'est pas gênant que dans deux blocs disjoints un même nom soit utilisé pour des variables locales à ces blocs car les variables locales sont déclarées dans des environnements différents. Ainsi, les variables locales de deux blocs disjoints n'ont pas de lien entre elles et ne peuvent pas être confondues.\\
 
@@ -86,8 +148,28 @@ blabla
     >$
     \end{lstlisting}
 
-\chapter*{Difficultées rencotrées}
-    Blabla
+    \newpage
 
+
+    \section{Questions passe typage}
+
+    \newpage
+
+
+    \section{Questions passe simplification de terme}
+
+    \newpage
+
+    \section{Extension}
+
+    \newpage
+
+\chapter{Difficultées rencontrées}
+
+   \quad Nous n'avons pas rencontré de difficultées particulières lors de l'implémentation du lexer, du parser ou de la passe renommage.\\
+
+    \section{Passe simplification de terme}
+
+    \section{Extension}
 
 \end{document}
