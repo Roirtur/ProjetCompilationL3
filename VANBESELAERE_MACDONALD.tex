@@ -11,6 +11,7 @@
 \usepackage{geometry} % Access extensive page dimension controls
 \usepackage{listings}
 \usepackage{bookmark}
+\usepackage{array}
 
 \geometry{
   margin = 1in % Sets equal margins for all sides (modify as desired)
@@ -153,12 +154,65 @@
 
     \section{Questions passe typage}
 
-    \newpage
+    \quad 1. Pourquoi a-t'on besoin de Type\_generic pour la liste vide ?\\
 
+    \quad Type\_generic est utilisé pour la liste vide car la liste ne possède pas de type défini. On utilise donc Type\_generic comme type par défaut, qui sera modifié ensuite lorsqu'une première variable sera insérée dans le tableau. Le type du tableau deviendra donc ensuite le type de cette meme variable.\\
+
+    2. Pourquoi doit-on réaliser des copies des environnements avant de vérifier la cohérence
+        des types `a l'intérieur des blocs ?\\
+
+    \quad Il est primordial de réaliser des copies des environnements afin d'éviter d'affecter l'environnement global de manière non voulue. En effet, lors de la vérification des types à l'intérieur d'un bloc, il est parfois nécessaire de réaliser des modifications. Or, en copiant l'environnement, vous pourrez modifier celle-ci sans pour autant modifier l'environnement global. \\
+
+    3. Donnez un tableau similaire `a celui des opérateurs unaires qui précise le typage des
+        champs (fields).\\
+
+        \begin{tabular}{| c | c | c |}
+            \hline
+            AST & Type compatible & Type de sortie \\
+            \hline
+            Color & Type\_pixel & Type\_color \\
+            \hline
+            Coord & Type\_pixel & Type\_coord \\
+            \hline
+            X & Type\_coord & Type\_int \\
+            \hline
+            Y & Type\_coord & Type\_int \\
+            \hline
+            Red & Type\_color & Type\_int \\
+            \hline
+            Green & Type\_color & Type\_int \\
+            \hline
+            Blue & Type\_color & Type\_int \\
+            \hline
+        \end{tabular}\\
+
+    4. Expliquez quelles sont les deux erreurs qu'on peut détecter lorsqu'on traite un state-
+        ment For(x,start,last,step,body) lors de l'analyse de type.\\
+
+        La première erreur est :\\
+        \begin{verbatim}
+            "For loop on %s instead of Int or Real"
+        \end{verbatim}
+        \quad Qui est détecter lorsque les types de “start” n’est ni un “Int” ni un “Real”.\\
+        \newline
+        \newline
+        \quad La deuxième erreur est :\\
+        \begin{verbatim}
+            "For loop with inconsistent types %s, %s and %s"
+        \end{verbatim}
+        \quad Qui est détecter lorsque les types de “start”, “last” et “step” ne sont pas identiques.\\
+
+    \newpage
 
     \section{Questions passe simplification de terme}
 
-    \newpage
+    \quad 1. Pourquoi peut-on éliminer les For dans le cas décrit ci-dessus ? \\
+
+    Il est possible d'éliminer les boucles For, car si notre borne de départ est strictement supérieure à notre borne d'arrivée, alors aucune itération n'est possible. Par conséquent, la boucle est inutile et peut être remplacée par un bloc vide. \\
+
+    2. Pourquoi ne simplifie t'on pas les nœuds de la forme Real\_of\_int(Floor(n,a1),a2)? \\
+
+    On ne simplifie pas les nœuds Real\_of\_int(Floor(n,a1),a2), car ceux-ci représentent une conversion vers un nombre réel. En simplifiant ce nœud, le résultat obtenu pourrait être différent du véritable résultat. Il est donc nécessaire de garder la structure de ces nœuds, afin d'éviter des erreurs de calculs et de typage.\\
 
     \section{Extension}
 
