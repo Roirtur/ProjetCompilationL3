@@ -309,6 +309,12 @@ let rec interpret_statement environment = function
             l
       (* Environment.remove_layer environment *)
       | _ -> failwith "Iterating on something else than a list")
+  | While (test, body, _) -> (
+      while
+        interpret_expression environment test = Bool true
+      do
+        interpret_statement environment body
+      done)
   | Draw_pixel (expression, _) -> (
       match interpret_expression environment expression with
       | Pixel p ->

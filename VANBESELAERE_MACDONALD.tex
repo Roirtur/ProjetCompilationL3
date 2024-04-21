@@ -216,6 +216,92 @@
 
     \section{Extension}
 
+    Nous avons choisi l'extension "Enrichissement du langage".\\
+
+    Voici les modifications apportées au Lexer pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        25. | "While"           { WHILE }
+    \end{lstlisting}
+
+    Voici les modifications apportées au Parser pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        173. | WHILE LPAREN expr = expression RPAREN statement = statement { While(expr, statement, Annotation.create $loc) }
+    \end{lstlisting}
+
+    Voici les modifications apportées au fichier ast.ml pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        78. | While of expression * statement * Annotation.t
+        ...
+        200. | While (test, statement, _) ->
+        201.    Format.fprintf fmt "@[<v 2>While (%s)@,%a@]" (string_of_expression test)
+        202.    pp_statement statement
+    \end{lstlisting}
+
+    Voici les modifications apportées au fichier ast.mli pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        108. | While of expression * statement * Annotation.t
+    \end{lstlisting}
+    
+    Voici les modifications apportées à l'interpreter pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        312. | While (test, body, _) -> (
+        313.     while
+        314.       interpret_expression environment test = Bool true
+        315.     do
+        316.       interpret_statement environment body
+        317.     done)
+    \end{lstlisting}
+
+    Voici les modifications apportées à la passe de simplification de terme pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        TODO
+    \end{lstlisting}
+
+    Voici les modifications apportées à la passe de typage pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        376. | While (test, body, ann) ->
+        377.     let t = type_expression type_environment report test in
+        378.     if t <> Type_bool then
+        379.         Error_report.add_error report
+        380.         ( Format.sprintf "test should be a Bool, but is a %s"
+        381.             (string_of_type_expression t),
+        382.             Annotation.get_pos ann );
+        383.     type_statement (Environment.copy type_environment) report body
+    \end{lstlisting}
+
+    Voici les modifications apportées à la passe de renommage pour la boucle While: \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        55. | While (condition, block, anno) -> While (renaming_expression (condition, counter_env), renaming_statement (block, Environment.copy counter_env), anno)
+    \end{lstlisting}
+
+    Nous avons aussi rajouté deux constructions de sucre syntaxique :\\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        TODO
+    \end{lstlisting}
+
+    Qui permetront de TODO.\\
+
+    Toutes ses modifications ont été testées dans le fichier programs/good_examples/custom_example_EXTENSION.pix :\\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        TODO (content of custom_example_EXTENSION.pix)
+    \end{lstlisting}
+
+    Cela renvoie bien le résultat attendu : \\
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+        TODO (result of custom_example_EXTENSION.pix)
+    \end{lstlisting}
+
     \newpage
 
 \chapter{Difficultées rencontrées}

@@ -373,6 +373,14 @@ let rec type_statement type_environment report stmt =
       let env = Environment.copy type_environment in
       Environment.add env name t_var;
       type_statement env report body
+  | While (test, body, ann) ->
+      let t = type_expression type_environment report test in
+      if t <> Type_bool then
+        Error_report.add_error report
+          ( Format.sprintf "test should be a Bool, but is a %s"
+              (string_of_type_expression t),
+            Annotation.get_pos ann );
+      type_statement (Environment.copy type_environment) report body
   | Draw_pixel (e, ann) ->
       let t = type_expression type_environment report e in
       if t <> Type_pixel then

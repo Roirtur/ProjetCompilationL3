@@ -22,6 +22,7 @@ rule token = parse
     | "Floor"           { FLOOR }
     | "For"             { FOR }
     | "Foreach"         { FOREACH }
+    | "While"           { WHILE }
     | "From"            { FROM }
     | "Green"           { GREEN }
     | "Head"            { HEAD }

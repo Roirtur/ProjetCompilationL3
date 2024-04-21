@@ -17,6 +17,7 @@
 %token FLOOR
 %token FOR
 %token FOREACH
+%token WHILE
 %token FROM
 %token GREEN
 %token HEAD
@@ -170,6 +171,7 @@ statement:
 | IF LPAREN expr = expression RPAREN statement_1 = statement ELSE statement_2 = statement { IfThenElse(expr, statement_1, statement_2, Annotation.create $loc) }
 | FOR var_name = ID FROM expr_1 = expression TO expr_2 = expression STEP expr_3 = expression statement = statement { For(var_name, expr_1, expr_2, expr_3, statement, Annotation.create $loc) }
 | FOREACH var_name = ID IN expr = expression statement = statement { Foreach(var_name, expr, statement, Annotation.create $loc) } 
+| WHILE LPAREN expr = expression RPAREN statement = statement { While(expr, statement, Annotation.create $loc) }
 | DRAW LPAREN expr = expression RPAREN { Draw_pixel(expr, Annotation.create $loc) }
 | PRINT LPAREN expr = expression RPAREN { Print(expr, Annotation.create $loc) }
 | { Nop }

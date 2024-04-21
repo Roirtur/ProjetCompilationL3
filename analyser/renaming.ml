@@ -52,6 +52,7 @@ let rec renaming_statement (statement, counter_env) =
       | None -> Environment.add new_env id 0; Foreach(id, renaming_expression (expression, counter_env), renaming_statement (block, new_env), anno)
       | Some value -> Environment.modify new_env id (value + 1); Foreach((id ^ "#" ^ (string_of_int (value + 1))), renaming_expression (expression, counter_env), renaming_statement (block, new_env), anno)
    )
+   | While (condition, block, anno) -> While (renaming_expression (condition, counter_env), renaming_statement (block, Environment.copy counter_env), anno)
    | Draw_pixel (expression, anno) -> Draw_pixel (renaming_expression (expression, counter_env), anno)
    | Nop -> Nop
    | Print (expression, anno) -> Print (renaming_expression (expression, counter_env), anno)
