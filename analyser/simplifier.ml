@@ -155,6 +155,11 @@ let rec simplify_expression expr =
 
     | Field_accessor (field, e, anno) ->
         (match simplify_expression e with
+        | Pixel (p, c, _) ->
+            (match field with 
+            | Coord_field -> p 
+            | Color_field -> c
+            | _ -> Field_accessor (field, simplify_expression e, anno))
         | Coord (x, y, _) -> 
             (match field with 
             | X_field -> x 
