@@ -67,115 +67,17 @@ let rec simplify_expression expr =
             | Geq -> Const_bool (r1 >= r2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
-        | (Const_int (i, _), (Coord (x, y, _))) ->
-            (match op with
-            | Plus -> 
-                let b1 = Binary_operator (Plus, Const_int (i, anno), x, anno) in
-                let b2 = Binary_operator (Plus, Const_int (i, anno), y, anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Minus -> 
-                let b1 = Binary_operator (Minus, Const_int (i, anno), x, anno) in
-                let b2 = Binary_operator (Minus, Const_int (i, anno), y, anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Times -> 
-                let b1 = Binary_operator (Times, Const_int (i, anno), x, anno) in
-                let b2 = Binary_operator (Times, Const_int (i, anno), y, anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Div -> 
-                let b1 = Binary_operator (Div, Const_int (i, anno), x, anno) in
-                let b2 = Binary_operator (Div, Const_int (i, anno), y, anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Rem -> 
-                let b1 = Binary_operator (Rem, Const_int (i, anno), x, anno) in
-                let b2 = Binary_operator (Rem, Const_int (i, anno), y, anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        | (Const_int (i, _), (Coord (x, y, _))) | (Coord (x, y, _), Const_int (i, _)) ->
+            let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
+            let b2 = Binary_operator (op, Const_int (i, anno), y, anno) in
+            simplify_expression (Coord (b1, b2, anno))
 
-        | (Const_int (i, _), Color (r, g, b, _)) ->
-            (match op with
-            | Plus -> 
-                let b1 = Binary_operator (Plus, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Plus, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Plus, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Minus -> 
-                let b1 = Binary_operator (Minus, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Minus, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Minus, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Times -> 
-                let b1 = Binary_operator (Times, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Times, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Times, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Div -> 
-                let b1 = Binary_operator (Div, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Div, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Div, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Rem -> 
-                let b1 = Binary_operator (Rem, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Rem, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Rem, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        | (Const_int (i, _), Color (r, g, b, _)) | ((Color (r, g, b, _) ), Const_int (i, _)) ->
+            let b1 = Binary_operator (op, Const_int (i, anno), r, anno) in
+            let b2 = Binary_operator (op, Const_int (i, anno), g, anno) in
+            let b3 = Binary_operator (op, Const_int (i, anno), b, anno) in
+            simplify_expression (Color (b1, b2, b3, anno))
             
-
-        | (Coord (x, y, _), Const_int (i, _)) ->
-            (match op with
-            | Plus -> 
-                let b1 = Binary_operator (Plus, x, Const_int (i, anno), anno) in
-                let b2 = Binary_operator (Plus, y, Const_int (i, anno), anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Minus -> 
-                let b1 = Binary_operator (Minus, x, Const_int (i, anno), anno) in
-                let b2 = Binary_operator (Minus, y, Const_int (i, anno), anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Times -> 
-                let b1 = Binary_operator (Times, x, Const_int (i, anno), anno) in
-                let b2 = Binary_operator (Times, y, Const_int (i, anno), anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | Div -> 
-                let b1 = Binary_operator (Div, x, Const_int (i, anno), anno) in
-                let b2 = Binary_operator (Div, y, Const_int (i, anno), anno) in
-                    simplify_expression (Coord (b1, b2, anno))
-            | Rem -> 
-                let b1 = Binary_operator (Rem, x, Const_int (i, anno), anno) in
-                let b2 = Binary_operator (Rem, y, Const_int (i, anno), anno) in
-                simplify_expression (Coord (b1, b2, anno))
-            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
-
-
-        | ((Color (r, g, b, _) ), Const_int (i, _)) ->
-            (match op with
-            | Plus -> 
-                let b1 = Binary_operator (Plus, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Plus, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Plus, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Minus -> 
-                let b1 = Binary_operator (Minus, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Minus, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Minus, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Times -> 
-                let b1 = Binary_operator (Times, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Times, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Times, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Div -> 
-                let b1 = Binary_operator (Div, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Div, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Div, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | Rem -> 
-                let b1 = Binary_operator (Rem, Const_int (i, anno), r, anno) in
-                let b2 = Binary_operator (Rem, Const_int (i, anno), g, anno) in
-                let b3 = Binary_operator (Rem, Const_int (i, anno), b, anno) in
-                simplify_expression (Color (b1, b2, b3, anno))
-            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
-
-
         | (List (elem1, _), List (elem2, _)) ->
             (match op with
             | Plus -> List (elem1 @ elem2, anno)
