@@ -113,6 +113,12 @@ let rec simplify_expression expr =
             | Equal -> Const_bool (l1 = l2, anno)
             | Diff -> Const_bool (l1 != l2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+
+        | (Const_real (_), Const_int (i, _)) ->
+            Binary_operator (op, e1, Unary_operator (Real_of_int, Const_int (i, anno), anno), anno)
+
+        | (Const_int (i, _), Const_real (_)) ->
+            Binary_operator (op, Unary_operator (Real_of_int, Const_int (i, anno), anno), e1, anno)
             
         | (Const_int (i, _), (Coord (x, y, _))) ->
             let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
