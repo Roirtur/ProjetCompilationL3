@@ -129,11 +129,12 @@ let rec simplify_expression expr =
         | (List (elems, _), List (elems2, _)) -> List (elems @ elems2, anno)
         | (List _, _) -> simplify_expression l
         | _ -> Append (simplify_expression e, simplify_expression l, anno))
-  
-
 
 let rec simplify_statement state =
     match state with
+    
+    | Affectation (e1, e2, anno) ->
+        Affectation (simplify_expression e1, simplify_expression e2, anno)
 
     | Declaration _ -> state
 
@@ -157,14 +158,15 @@ let rec simplify_statement state =
         | List ([], _) -> Block ([], anno)
         | _ -> Foreach (id, simplify_expression test, simplify_statement body, anno))
 
-    | Affectation (e1, e2, anno) ->
-        Affectation (simplify_expression e1, simplify_expression e2, anno)
-
+    | While (test, body, anno) ->
+        (match simplify_expression test with
+        | Const_bool (false, _) -> Block ([], anno)
+        | _ -> While (simplify_expression test, simplify_statement body, anno))
+    
     | Draw_pixel (e, anno) ->
         Draw_pixel (simplify_expression e, anno)
+    
+    | Nop -> Nop
 
     | Print (e, anno) ->
         Print (simplify_expression e, anno)
-
-    | _ -> state
-  
