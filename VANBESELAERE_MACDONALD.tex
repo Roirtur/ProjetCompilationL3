@@ -262,7 +262,10 @@
     Voici les modifications apportées à la passe de simplification de terme pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        TODO
+        161. | While (test, body, anno) ->
+        162.     (match simplify_expression test with
+        163.     | Const_bool (false, _) -> Block ([], anno)
+        164.     | _ -> While (simplify_expression test, simplify_statement body, anno))
     \end{lstlisting}
 
     Voici les modifications apportées à la passe de typage pour la boucle While: \\

@@ -59,6 +59,7 @@ let rec simplify_expression expr =
             | Minus -> Const_real ((r1 -. r2), anno)
             | Times -> Const_real ((r1 *. r2), anno)
             | Div -> Const_real ((r1 /. r2), anno)
+            | Rem -> Const_real (mod_float r1 r2, anno)
             | Equal -> Const_bool (r1 = r2, anno)
             | Diff -> Const_bool (r1 != r2, anno)
             | Lt -> Const_bool (r1 < r2, anno)
@@ -74,6 +75,39 @@ let rec simplify_expression expr =
             | Equal -> Const_bool (b1 = b2, anno)
             | Diff -> Const_bool (b1 != b2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        
+        | (Coord (x1, y1, _), Coord (x2, y2, _)) ->
+            (match op with
+            | Plus -> Coord (Binary_operator (Plus, x1, x2, anno), Binary_operator (Plus, y1, y2, anno), anno)
+            | Minus -> Coord (Binary_operator (Minus, x1, x2, anno), Binary_operator (Minus, y1, y2, anno), anno)
+            | Times -> Coord (Binary_operator (Times, x1, x2, anno), Binary_operator (Times, y1, y2, anno), anno)
+            | Div -> Coord (Binary_operator (Div, x1, x2, anno), Binary_operator (Div, y1, y2, anno), anno)
+            | Rem -> Coord (Binary_operator (Rem, x1, x2, anno), Binary_operator (Rem, y1, y2, anno), anno)
+            | Equal -> Const_bool (x1 = x2 && y1 = y2, anno)
+            | Diff -> Const_bool (x1 != x2 || y1 != y2, anno)
+            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        
+        | (Color (r1, g1, b1, _), Color (r2, g2, b2, _)) ->
+            (match op with
+            | Plus -> Color (Binary_operator (Plus, r1, r2, anno), Binary_operator (Plus, g1, g2, anno), Binary_operator (Plus, b1, b2, anno), anno)
+            | Minus -> Color (Binary_operator (Minus, r1, r2, anno), Binary_operator (Minus, g1, g2, anno), Binary_operator (Minus, b1, b2, anno), anno)
+            | Times -> Color (Binary_operator (Times, r1, r2, anno), Binary_operator (Times, g1, g2, anno), Binary_operator (Times, b1, b2, anno), anno)
+            | Div -> Color (Binary_operator (Div, r1, r2, anno), Binary_operator (Div, g1, g2, anno), Binary_operator (Div, b1, b2, anno), anno)
+            | Rem -> Color (Binary_operator (Rem, r1, r2, anno), Binary_operator (Rem, g1, g2, anno), Binary_operator (Rem, b1, b2, anno), anno)
+            | Equal -> Const_bool (r1 = r2 && g1 = g2 && b1 = b2, anno)
+            | Diff -> Const_bool (r1 != r2 || g1 != g2 || b1 != b2, anno)
+            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        
+        | (Pixel (p1, c1, _), Pixel (p2, c2, _)) ->
+            (match op with
+            | Plus -> Pixel (Binary_operator (Plus, p1, p2, anno), Binary_operator (Plus, c1, c2, anno), anno)
+            | Minus -> Pixel (Binary_operator (Minus, p1, p2, anno), Binary_operator (Minus, c1, c2, anno), anno)
+            | Times -> Pixel (Binary_operator (Times, p1, p2, anno), Binary_operator (Times, c1, c2, anno), anno)
+            | Div -> Pixel (Binary_operator (Div, p1, p2, anno), Binary_operator (Div, c1, c2, anno), anno)
+            | Rem -> Pixel (Binary_operator (Rem, p1, p2, anno), Binary_operator (Rem, c1, c2, anno), anno)
+            | Equal -> Const_bool (p1 = p2 && c1 = c2, anno)
+            | Diff -> Const_bool (p1 != p2 || c1 != c2, anno)
+            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
         | (Const_int (i, _), (Coord (x, y, _))) | (Coord (x, y, _), Const_int (i, _)) ->
             let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
@@ -85,6 +119,18 @@ let rec simplify_expression expr =
             let b2 = Binary_operator (op, Const_int (i, anno), g, anno) in
             let b3 = Binary_operator (op, Const_int (i, anno), b, anno) in
             simplify_expression (Color (b1, b2, b3, anno))
+        
+        | (Const_int (i, _), Pixel (p, c, _)) | (Pixel (p, c, _), Const_int (i, _)) ->
+            let b1 = Binary_operator (op, Const_int (i, anno), p, anno) in
+            let b2 = Binary_operator (op, Const_int (i, anno), c, anno) in
+            simplify_expression (Pixel (b1, b2, anno))
+        
+        | (List(l1, _), List(l2, _)) ->
+            (match op with
+            | Plus -> simplify_expression (List (l1 @ l2, anno))
+            | Equal -> Const_bool (l1 = l2, anno)
+            | Diff -> Const_bool (l1 != l2, anno)
+            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
             
         | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
@@ -93,10 +139,12 @@ let rec simplify_expression expr =
         | Const_int (n, _) -> 
             (match op with 
             | Opposite -> Const_int ((-n), anno) 
+            | Real_of_int -> Const_real (float_of_int n, anno)
             | _ -> Unary_operator (op, simplify_expression e, anno))
         | Const_real (n, _) -> 
             (match op with 
-            |Opposite -> Const_real ((-.n), anno) 
+            | Opposite -> Const_real ((-.n), anno) 
+            | Floor -> Const_int (int_of_float (floor n), anno)
             | _ -> Unary_operator (op, simplify_expression e, anno))
         | Const_bool (b, _) -> 
             (match op with 
@@ -124,10 +172,8 @@ let rec simplify_expression expr =
         let simp_elems = List.map simplify_expression elems in
         List (simp_elems, anno)
 
-    | Append (e, l, anno) ->
-        (match (simplify_expression e, simplify_expression l) with
-        | (List (elems, _), List (elems2, _)) -> List (elems @ elems2, anno)
-        | (List _, _) -> simplify_expression l
+    | Append (e, l, anno) -> (match simplify_expression l with
+        | List (elems, _) -> List ( (simplify_expression e) :: elems, anno)
         | _ -> Append (simplify_expression e, simplify_expression l, anno))
 
 let rec simplify_statement state =
