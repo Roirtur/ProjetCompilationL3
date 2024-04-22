@@ -1,5 +1,9 @@
 // Exemple d'utilisation de WHILE et *TODO* de l'extension 3.5
 < >
 $<
-
+Int : x;
+Real : y;
+Set(x, 72);
+Set(y, 7.2);
+    For x1 From 0 To 200 Step 1 Draw(Pixel(Coord(x,74*2)*2+x1,Color(Floor(Real_of_int(Floor(2.2))),0,x/7)%255))
 >$

@@ -15,8 +15,6 @@
     Vous détaillerez dans le rapport les différents cas que vous simplifiez dans votre simplificateur.
 *)
 
-let simplifier (program : Ast.program) = program
-
 open Ast
 
 let rec simplify_expression expr =
@@ -109,22 +107,6 @@ let rec simplify_expression expr =
             | Diff -> Const_bool (p1 != p2 || c1 != c2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
-        | (Const_int (i, _), (Coord (x, y, _))) | (Coord (x, y, _), Const_int (i, _)) ->
-            let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
-            let b2 = Binary_operator (op, Const_int (i, anno), y, anno) in
-            simplify_expression (Coord (b1, b2, anno))
-
-        | (Const_int (i, _), Color (r, g, b, _)) | ((Color (r, g, b, _) ), Const_int (i, _)) ->
-            let b1 = Binary_operator (op, Const_int (i, anno), r, anno) in
-            let b2 = Binary_operator (op, Const_int (i, anno), g, anno) in
-            let b3 = Binary_operator (op, Const_int (i, anno), b, anno) in
-            simplify_expression (Color (b1, b2, b3, anno))
-        
-        | (Const_int (i, _), Pixel (p, c, _)) | (Pixel (p, c, _), Const_int (i, _)) ->
-            let b1 = Binary_operator (op, Const_int (i, anno), p, anno) in
-            let b2 = Binary_operator (op, Const_int (i, anno), c, anno) in
-            simplify_expression (Pixel (b1, b2, anno))
-        
         | (List(l1, _), List(l2, _)) ->
             (match op with
             | Plus -> simplify_expression (List (l1 @ l2, anno))
@@ -132,6 +114,28 @@ let rec simplify_expression expr =
             | Diff -> Const_bool (l1 != l2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
             
+        | (Const_int (i, _), (Coord (x, y, _))) ->
+            let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
+            let b2 = Binary_operator (op, Const_int (i, anno), y, anno) in
+            simplify_expression (Coord (b1, b2, anno))
+        
+        | ((Coord (x, y, _)), Const_int (i, _)) ->
+            let b1 = Binary_operator (op, x, Const_int (i, anno), anno) in
+            let b2 = Binary_operator (op, y, Const_int (i, anno), anno) in
+            simplify_expression (Coord (b1, b2, anno))
+        
+        | (Const_int (i, _), Color (r, g, b, _)) ->
+            let b1 = Binary_operator (op, Const_int (i, anno), r, anno) in
+            let b2 = Binary_operator (op, Const_int (i, anno), g, anno) in
+            let b3 = Binary_operator (op, Const_int (i, anno), b, anno) in
+            simplify_expression (Color (b1, b2, b3, anno))
+
+        | ((Color (r, g, b, _) ), Const_int (i, _)) ->
+            let b1 = Binary_operator (op, r, Const_int (i, anno), anno) in
+            let b2 = Binary_operator (op, g, Const_int (i, anno), anno) in
+            let b3 = Binary_operator (op, b, Const_int (i, anno), anno) in
+            simplify_expression (Color (b1, b2, b3, anno))
+        
         | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
     | Unary_operator (op, e, anno) ->
@@ -145,12 +149,17 @@ let rec simplify_expression expr =
             (match op with 
             | Opposite -> Const_real ((-.n), anno) 
             | Floor -> Const_int (int_of_float (floor n), anno)
+            | Cos -> Const_real (cos n, anno)
+            | Sin -> Const_real (sin n, anno)
             | _ -> Unary_operator (op, simplify_expression e, anno))
         | Const_bool (b, _) -> 
             (match op with 
             |Not -> Const_bool (not b, anno) 
             | _ -> Unary_operator (op, simplify_expression e, anno))
-
+        | Unary_operator (op2, e2, _) -> 
+            (match (op, op2) with
+            | (Floor, Real_of_int) -> simplify_expression e2
+            | _ -> Unary_operator (op, simplify_expression e, anno))
         | _ -> Unary_operator (op, simplify_expression e, anno))
 
     | Field_accessor (field, e, anno) ->
@@ -221,3 +230,7 @@ let rec simplify_statement state =
 
     | Print (e, anno) ->
         Print (simplify_expression e, anno)
+
+
+let simplifier (program : Ast.program) = (match program with
+    | Program (decls, body) -> Program (decls, simplify_statement body))
