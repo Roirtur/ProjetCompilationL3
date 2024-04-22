@@ -67,6 +67,14 @@ let rec simplify_expression expr =
             | Geq -> Const_bool (r1 >= r2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
+        | (Const_bool (b1, _), Const_bool (b2, _)) ->
+            (match op with
+            | And -> Const_bool (b1 && b2, anno)
+            | Or -> Const_bool (b1 || b2, anno)
+            | Equal -> Const_bool (b1 = b2, anno)
+            | Diff -> Const_bool (b1 != b2, anno)
+            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+
         | (Const_int (i, _), (Coord (x, y, _))) | (Coord (x, y, _), Const_int (i, _)) ->
             let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
             let b2 = Binary_operator (op, Const_int (i, anno), y, anno) in
@@ -78,10 +86,6 @@ let rec simplify_expression expr =
             let b3 = Binary_operator (op, Const_int (i, anno), b, anno) in
             simplify_expression (Color (b1, b2, b3, anno))
             
-        | (List (elem1, _), List (elem2, _)) ->
-            (match op with
-            | Plus -> List (elem1 @ elem2, anno)
-            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
         | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
 
     | Unary_operator (op, e, anno) ->
@@ -128,9 +132,11 @@ let rec simplify_expression expr =
   
 
 
-  let rec simplify_statement state =
+let rec simplify_statement state =
     match state with
+
     | Declaration _ -> state
+
     | Block (l, anno) -> Block (List.map simplify_statement l, anno)
 
     | IfThenElse (test, th, el, anno) ->
@@ -143,13 +149,22 @@ let rec simplify_expression expr =
         (match (simplify_expression e1, simplify_expression e2, simplify_expression e3) with
         | (Const_int (i1, _), Const_int (i2, _), Const_int (_, _)) ->
             if i1 > i2 then Block ([], anno)
-            else For (id, simplify_expression e1, simplify_expression e2, simplify_expression e3, simplify_statement body, anno)
+            else For (id, Const_int (i1, anno), Const_int (i2, anno), simplify_expression e3, simplify_statement body, anno)
         | _ -> For (id, simplify_expression e1, simplify_expression e2, simplify_expression e3, simplify_statement body, anno))
 
     | Foreach (id, test, body, anno) ->
         (match simplify_expression test with
         | List ([], _) -> Block ([], anno)
         | _ -> Foreach (id, simplify_expression test, simplify_statement body, anno))
+
+    | Affectation (e1, e2, anno) ->
+        Affectation (simplify_expression e1, simplify_expression e2, anno)
+
+    | Draw_pixel (e, anno) ->
+        Draw_pixel (simplify_expression e, anno)
+
+    | Print (e, anno) ->
+        Print (simplify_expression e, anno)
 
     | _ -> state
   
