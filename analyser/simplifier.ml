@@ -157,6 +157,7 @@ let rec simplify_expression expr =
             simplify_expression (Color (b1, b2, b3, anno))
         
         | _ -> (match (get_type_of_expression e1, get_type_of_expression e2) with
+            (* We cannot create a new annotation without a pos, so we thought that this way should work too *)
             | Type_int, Type_real ->
                 let new_annotation = anno in
                 Ast.Annotation.set_type new_annotation (get_type_of_expression expr);
