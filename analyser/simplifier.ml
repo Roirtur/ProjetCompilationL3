@@ -17,6 +17,26 @@
 
 open Ast
 
+(* Gets type of an expression and return the corresponding annotation *)
+let get_type_of_expression expr = 
+    match expr with
+    | Const_int (_, anno) 
+    | Const_real (_, anno)
+    | Const_bool (_, anno)
+    | Variable (_, anno)
+    | Coord (_, _, anno)
+    | Color (_, _, _, anno)
+    | Pixel (_, _, anno)
+    | Binary_operator (_, _, _, anno)
+    | Unary_operator (_, _, anno)
+    | Field_accessor (_, _, anno)
+    | List (_, anno)
+    | Append (_, _, anno) -> match (Ast.Annotation.get_type anno) with
+        | Some otype -> otype
+        | None -> Type_generic
+    
+(* Simplify an expression *)
+
 let rec simplify_expression expr =
     match expr with
 
@@ -113,12 +133,6 @@ let rec simplify_expression expr =
             | Equal -> Const_bool (l1 = l2, anno)
             | Diff -> Const_bool (l1 != l2, anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
-
-        | (Const_real (_), Const_int (i, _)) ->
-            Binary_operator (op, e1, Unary_operator (Real_of_int, Const_int (i, anno), anno), anno)
-
-        | (Const_int (i, _), Const_real (_)) ->
-            Binary_operator (op, Unary_operator (Real_of_int, Const_int (i, anno), anno), e1, anno)
             
         | (Const_int (i, _), (Coord (x, y, _))) ->
             let b1 = Binary_operator (op, Const_int (i, anno), x, anno) in
@@ -142,7 +156,17 @@ let rec simplify_expression expr =
             let b3 = Binary_operator (op, b, Const_int (i, anno), anno) in
             simplify_expression (Color (b1, b2, b3, anno))
         
-        | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        | _ -> (match (get_type_of_expression e1, get_type_of_expression e2) with
+            | Type_int, Type_real ->
+                let new_annotation = anno in
+                Ast.Annotation.set_type new_annotation (get_type_of_expression expr);
+                Binary_operator (op, Unary_operator (Real_of_int, simplify_expression e1, new_annotation), simplify_expression e2, anno)
+            | Type_real, Type_int ->
+                let new_annotation = anno in
+                Ast.Annotation.set_type new_annotation (get_type_of_expression expr);
+                Binary_operator (op, simplify_expression e1, Unary_operator (Real_of_int, simplify_expression e2, new_annotation), anno)
+            | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
+        )
 
     | Unary_operator (op, e, anno) ->
         (match simplify_expression e with
