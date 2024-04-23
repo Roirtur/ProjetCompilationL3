@@ -177,7 +177,11 @@ statement:
 | WHILE LPAREN expr = expression RPAREN statement = statement { While(expr, statement, Annotation.create $loc) }
 | DRAW LPAREN expr = expression RPAREN { Draw_pixel(expr, Annotation.create $loc) }
 | PRINT LPAREN expr = expression RPAREN { Print(expr, Annotation.create $loc) }
-| MAP LPAREN list_name = expression operation = binary_operator value = expression RPAREN { Foreach("mapping_variable", list_name, Block([Affectation(Variable("mapping_variable", Annotation.create $loc), Binary_operator(operation, Variable("mapping_variable", Annotation.create $loc), value, Annotation.create $loc), Annotation.create $loc)], Annotation.create $loc), Annotation.create $loc ) }
+| MAP LPAREN expr_1 = expression operation = binary_operator expr_2 = expression RPAREN { 
+    Foreach("mapping_variable", expr_1, 
+        Affectation(Variable("mapping_variable", Annotation.create $loc), Binary_operator(operation, Variable("mapping_variable", Annotation.create $loc), expr_2, Annotation.create $loc), 
+        Annotation.create $loc), 
+    Annotation.create $loc) }
 | var_name = ID PLUS PLUS { Affectation(Variable(var_name, Annotation.create $loc), Binary_operator(Plus, Variable(var_name, Annotation.create $loc), Const_int(1, Annotation.create $loc), Annotation.create $loc), Annotation.create $loc) }
 | var_name = ID MINUS MINUS { Affectation(Variable(var_name, Annotation.create $loc), Binary_operator(Minus, Variable(var_name, Annotation.create $loc), Const_int(1, Annotation.create $loc), Annotation.create $loc), Annotation.create $loc) }
 | { Nop }
