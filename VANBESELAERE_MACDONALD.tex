@@ -45,11 +45,11 @@
 
     \section{Questions sur le Lexer}
 
-        Pour traiter les commentaires sur plusieurs lignes, on crée un nouvel état dans lequel on incrémente le buffer à chaque retour a la ligne et qui s'arrete seulement lorsqu'il rencotre les charactères "*/". 
+        Pour traiter les commentaires sur plusieurs lignes, on crée un nouvel état dans lequel on incrémente le buffer à chaque retour à la ligne et qui s'arrête seulement lorsqu'il rencontre les caractères "*/". 
 
     \section{Questions sur le Parser}
     
-    \quad 1. On consid`ere la séquence suivante : If \#expr\# If \#expr\# \#stmt\# Else \#stmt\#
+    \quad 1. On considère la séquence suivante : If \#expr\# If \#expr\# \#stmt\# Else \#stmt\#
 \quad On consid`ere pour cette question que \#expr\# et \#stmt\# sont des terminaux (i.e., onne cherchera pas à les "étendre").\\
     
     \quad (a) Donnez les deux arbres de dérivations possible de cette séquence dans la gram-
@@ -85,10 +85,10 @@
     \quad 2. Choisissez un conflit shift-reduce possible dans votre grammaire sans annotation (qui
     n'est pas celui de la question précédente), et expliquez quelles annotations de priorité
     vous avez mis pour le résoudre, et son effet sur les arbres acceptés (quels arbres sont
-    privilégiés, lesquels sont ignorés). Vous illustrerez un exemple o`u ce conflit pourrait
+    privilégiés, lesquels sont ignorés). Vous illustrerez un exemple où ce conflit pourrait
     arriver et les deux arbres mis en jeu via une séquence de tokens.\\
 
-    \quad Les operateurs binaires BINOP (par exemple PLUS) ont des conflits shift reduce avec les expressions.\\
+    \quad Les opérateurs binaires BINOP (par exemple PLUS) ont des conflits shift reduce avec les expressions.\\
 
     \quad Exemple avec "\#expr\# PLUS \#expr\# PLUS \#expr\#"  :\\
 
@@ -156,7 +156,7 @@ $<
 
     \quad 1. Pourquoi a-t'on besoin de Type\_generic pour la liste vide ?\\
 
-    \quad Type\_generic est utilisé pour la liste vide car la liste ne possède pas de type défini. On utilise donc Type\_generic comme type par défaut, qui sera modifié ensuite lorsqu'une première variable sera insérée dans le tableau. Le type du tableau deviendra donc ensuite le type de cette meme variable.\\
+    \quad Type\_generic est utilisé pour la liste vide car la liste ne possède pas de type défini. On utilise donc Type\_generic comme type par défaut, qui sera modifié ensuite lorsqu'une première variable sera insérée dans le tableau. Le type du tableau deviendra donc ensuite le type de cette même variable.\\
 
     2. Pourquoi doit-on réaliser des copies des environnements avant de vérifier la cohérence
         des types `a l'intérieur des blocs ?\\
@@ -208,7 +208,7 @@ $<
 
     \quad 1. Pourquoi peut-on éliminer les For dans le cas décrit ci-dessus ? \\
 
-    Il est possible d'éliminer les boucles For, car si notre borne de départ est strictement supérieure à notre borne d'arrivée, alors aucune itération n'est possible. Par conséquent, la boucle est inutile et peut être remplacée par un bloc vide. \\
+    Il est possible d'éliminer les boucles For, car si notre borne de départ est strictement supérieure à notre borne d'arrivée, alors aucune itération n'est possible. Par conséquent, la boucle est inutile et peut-être remplacée par un bloc vide. \\
 
     2. Pourquoi ne simplifie t'on pas les nœuds de la forme Real\_of\_int(Floor(n,a1),a2)? \\
 
@@ -462,11 +462,11 @@ Output:
 
 \chapter{Difficultées rencontrées}
 
-   \quad Nous n'avons pas rencontré de difficultées particulières lors de l'implémentation du lexer, du parser, de la passe renommage et de l'extension.\\
+   \quad Nous n'avons pas rencontré de difficultés particulières lors de l'implémentation du lexer, du parser, de la passe renommage et de l'extension.\\
 
     \section{Passe simplification de terme}
 
-    Pour le cast implicite, nous n'avons pas trouvé de meilleur solution que d'utilise Lexing.dummy\_pos pour creer une nouvelle position vide pour la nouvelle annotation.\\
+    Pour le cast implicite, nous n'avons pas trouvé de meilleure solution que d'utilise Lexing.dummy\_pos pour creer une nouvelle position vide pour la nouvelle annotation.\\
 
 
 \end{document}
