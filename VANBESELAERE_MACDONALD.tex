@@ -307,14 +307,13 @@ Parser.mly:
 163.     | POW2 LPAREN expr = expression RPAREN { Binary_operator(Times, 
             expr, expr, Annotation.create $loc) }
 ...
-180.     | MAP LPAREN list_name = expression operation = binary_operator 
-            value = expression RPAREN { Foreach("mapping_variable", 
-            list_name, Affectation(Variable(
-            "mapping_variable", Annotation.create $loc), 
-            Binary_operator(operation, Variable("mapping_variable", 
-            Annotation.create $loc), value, Annotation.create $loc),
-            Annotation.create $loc), 
-            Annotation.create $loc ) }
+180.     | MAP LPAREN list_elem = expression operation = binary_operator
+            number = expression RPAREN {Foreach("mapping_variable", 
+            list_elem, Affectation(Variable("mapping_variable", 
+            Annotation.create $loc), Binary_operator(operation, 
+            Variable("mapping_variable", Annotation.create $loc), 
+            number, Annotation.create $loc), Annotation.create $loc), 
+            Annotation.create $loc) }
 
 181.     | var_name = ID PLUS PLUS { Affectation(Variable(var_name,
             Annotation.create $loc), Binary_operator(Plus,
@@ -363,9 +362,7 @@ Set(x, (x*x));
         \hline
         {\tiny
         \begin{center}
-MapBinop(list, 
-         operation, 
-         value);
+MapBinop(list operation value);
         \end{center}
         }
         & Applique une opération binaire à chaque élément de la liste. & 
