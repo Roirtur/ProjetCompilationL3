@@ -157,13 +157,12 @@ let rec simplify_expression expr =
             simplify_expression (Color (b1, b2, b3, anno))
         
         | _ -> (match (get_type_of_expression e1, get_type_of_expression e2) with
-            (* We cannot create a new annotation without a pos, so we thought that this way should work too *)
             | Type_int, Type_real ->
-                let new_annotation = anno in
+                let new_annotation = Ast.Annotation.create (Lexing.dummy_pos, Lexing.dummy_pos) in
                 Ast.Annotation.set_type new_annotation (get_type_of_expression expr);
                 Binary_operator (op, Unary_operator (Real_of_int, simplify_expression e1, new_annotation), simplify_expression e2, anno)
             | Type_real, Type_int ->
-                let new_annotation = anno in
+                let new_annotation = Ast.Annotation.create (Lexing.dummy_pos, Lexing.dummy_pos) in
                 Ast.Annotation.set_type new_annotation (get_type_of_expression expr);
                 Binary_operator (op, simplify_expression e1, Unary_operator (Real_of_int, simplify_expression e2, new_annotation), anno)
             | _ -> Binary_operator (op, simplify_expression e1, simplify_expression e2, anno))
@@ -242,6 +241,9 @@ let rec simplify_statement state =
         | (Const_int (i1, _), Const_int (i2, _), Const_int (_, _)) ->
             if i1 > i2 then Block ([], anno)
             else For (id, Const_int (i1, anno), Const_int (i2, anno), simplify_expression e3, simplify_statement body, anno)
+        | Const_real (r1, _), Const_real (r2, _), Const_real (_, _) ->
+            if r1 > r2 then Block ([], anno)
+            else For (id, Const_real (r1, anno), Const_real (r2, anno), simplify_expression e3, simplify_statement body, anno)
         | _ -> For (id, simplify_expression e1, simplify_expression e2, simplify_expression e3, simplify_statement body, anno))
 
     | Foreach (id, test, body, anno) ->
