@@ -46,6 +46,8 @@ rule token = parse
     | "X"               { X }
     | "Y"               { Y }
     | "Pi"              { PI }
+    | "MapBinop"        { MAP } 
+    | "Pow2"            { POW2 }
 
     (* Symbols *)
     | "$<"              { BLOCKSTART }
