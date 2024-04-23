@@ -309,11 +309,11 @@ Parser.mly:
 ...
 180.     | MAP LPAREN list_name = expression operation = binary_operator 
             value = expression RPAREN { Foreach("mapping_variable", 
-            list_name, Block([Affectation(Variable(
+            list_name, Affectation(Variable(
             "mapping_variable", Annotation.create $loc), 
             Binary_operator(operation, Variable("mapping_variable", 
             Annotation.create $loc), value, Annotation.create $loc),
-            Annotation.create $loc)], Annotation.create $loc), 
+            Annotation.create $loc), 
             Annotation.create $loc ) }
 
 181.     | var_name = ID PLUS PLUS { Affectation(Variable(var_name,
@@ -346,7 +346,7 @@ Set(x, (x+1));
         \end{center}\\
         \hline
         \begin{center}
-x--;
+x- -;
         \end{center}
         & Décrémente la valeur de la variable x de 1. Cette variable peut être de type Int ou Real. & 
         \begin{center}
@@ -372,10 +372,8 @@ MapBinop(list,
         {\tiny
         \begin{lstlisting}[language=C, basicstyle=\ttfamily]
 Foreach mapping_variable In l
-    $<
         Set(mapping_variable, 
         (mapping_variable operation value));
-    >$;
         \end{lstlisting}
         }\\
         \hline
@@ -420,9 +418,7 @@ $<
     List(Int) : l;
     Set(l, [2, 8, 0]);
     Foreach mapping_variable In l
-      $<
-          Set(mapping_variable, (mapping_variable+3))
-      >$;
+      Set(mapping_variable, (mapping_variable+3));
     Print l;
     Int : x;
     Real : y;
