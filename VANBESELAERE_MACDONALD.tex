@@ -117,36 +117,36 @@
     2. Dans le programme suivant (il s'agit du programme renaming.pix, qui n'a pas d'intérêt particulier autre que pour cet exercice), indiquez comment le renommage des variables sera effectué :\\
     
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-    Program after analysis:
-    Arguments <
-      Int : x;
-      Real : y
-      >
+Program after analysis:
+Arguments <
+    Int : x;
+    Real : y
+    >
+$<
+    Set(x, (2*x));
+    Real : x#1;
+    Set(x#1, (2.*y));
+    Int : y#1;
+    Set(y#1, Floor(x#1));
     $<
-        Set(x, (2*x));
-        Real : x#1;
-        Set(x#1, (2.*y));
-        Int : y#1;
-        Set(y#1, Floor(x#1));
-        $<
-            Int : x#2;
-            Set(x#2, (2*y#1));
-            Int : y#2;
-            Set(y#2, (2*x#2));
-            
-        >$;
-        Set(y#1, (2*y#1));
-        $<
-            Coord : x#2;
-            Set(x#2, Coord(y#1, y#1));
-            Color : y#2;
-            Set(y#2, Color(x#2.X, x#2.X, x#2.X));
-            Draw_pixel(Pixel(x#2, y#2));
-            
-        >$;
-        Set(x#1, (2.2*x#1));
+        Int : x#2;
+        Set(x#2, (2*y#1));
+        Int : y#2;
+        Set(y#2, (2*x#2));
         
-    >$
+    >$;
+    Set(y#1, (2*y#1));
+    $<
+        Coord : x#2;
+        Set(x#2, Coord(y#1, y#1));
+        Color : y#2;
+        Set(y#2, Color(x#2.X, x#2.X, x#2.X));
+        Draw_pixel(Pixel(x#2, y#2));
+        
+    >$;
+    Set(x#1, (2.2*x#1));
+    
+>$
     \end{lstlisting}
 
     \newpage
@@ -221,103 +221,252 @@
     Voici les modifications apportées au Lexer pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        25. | "While"           { WHILE }
+25. | "While"           { WHILE }
     \end{lstlisting}
 
     Voici les modifications apportées au Parser pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        173. | WHILE LPAREN expr = expression RPAREN statement = statement {
-            While(expr, statement, Annotation.create $loc) }
+173. | WHILE LPAREN expr = expression RPAREN statement = statement {
+    While(expr, statement, Annotation.create $loc) }
     \end{lstlisting}
 
     Voici les modifications apportées au fichier ast.ml pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        78. | While of expression * statement * Annotation.t
-        ...
-        200. | While (test, statement, _) ->
-        201.    Format.fprintf fmt "@[<v 2>While (%s)@,%a@]" (
-            string_of_expression test)
-        202.    pp_statement statement
+78. | While of expression * statement * Annotation.t
+...
+200. | While (test, statement, _) ->
+201.    Format.fprintf fmt "@[<v 2>While (%s)@,%a@]" (
+    string_of_expression test)
+202.    pp_statement statement
     \end{lstlisting}
 
     Voici les modifications apportées au fichier ast.mli pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        108. | While of expression * statement * Annotation.t
+108. | While of expression * statement * Annotation.t
     \end{lstlisting}
     
     Voici les modifications apportées à l'interpreter pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        312. | While (test, body, _) -> (
-        313.     while
-        314.       interpret_expression environment test = Bool true
-        315.     do
-        316.       interpret_statement environment body
-        317.     done)
+312. | While (test, body, _) -> (
+313.     while
+314.       interpret_expression environment test = Bool true
+315.     do
+316.       interpret_statement environment body
+317.     done)
     \end{lstlisting}
 
     Voici les modifications apportées à la passe de simplification de terme pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        161. | While (test, body, anno) ->
-        162.     (match simplify_expression test with
-        163.     | Const_bool (false, _) -> Block ([], anno)
-        164.     | _ -> While (simplify_expression test, simplify_statement body, anno))
+161. | While (test, body, anno) ->
+162.     (match simplify_expression test with
+163.     | Const_bool (false, _) -> Block ([], anno)
+164.     | _ -> While (simplify_expression test, simplify_statement body, anno))
     \end{lstlisting}
 
     Voici les modifications apportées à la passe de typage pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        376. | While (test, body, ann) ->
-        377.     let t = type_expression type_environment report test in
-        378.     if t <> Type_bool then
-        379.         Error_report.add_error report
-        380.         ( Format.sprintf "test should be a Bool, but is a %s"
-        381.             (string_of_type_expression t),
-        382.             Annotation.get_pos ann );
-        383.     type_statement (Environment.copy type_environment) report body
+376. | While (test, body, ann) ->
+377.     let t = type_expression type_environment report test in
+378.     if t <> Type_bool then
+379.         Error_report.add_error report
+380.         ( Format.sprintf "test should be a Bool, but is a %s"
+381.             (string_of_type_expression t),
+382.             Annotation.get_pos ann );
+383.     type_statement (Environment.copy type_environment) report body
     \end{lstlisting}
 
     Voici les modifications apportées à la passe de renommage pour la boucle While: \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        55. | While (condition, block, anno) -> While (
-            renaming_expression (condition, counter_env),
-            renaming_statement (block, Environment.copy counter_env),
-            anno)
+55. | While (condition, block, anno) -> While (
+    renaming_expression (condition, counter_env),
+    renaming_statement (block, Environment.copy counter_env),
+    anno)
     \end{lstlisting}
 
     Nous avons aussi rajouté deux constructions de sucre syntaxique :\\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        TODO
+Lexer.mll:
+...
+49.      | "MapBinop"        { MAP } 
+50.      | "Pow2"            { POW2 }
+...
+
+Parser.mly:
+...
+44.  %token MAP
+45.  %token POW2
+...
+163.     | POW2 LPAREN expr = expression RPAREN { Binary_operator(Times, 
+            expr, expr, Annotation.create $loc) }
+...
+180.     | MAP LPAREN list_name = expression operation = binary_operator 
+            value = expression RPAREN { Foreach("mapping_variable", 
+            list_name, Block([Affectation(Variable(
+            "mapping_variable", Annotation.create $loc), 
+            Binary_operator(operation, Variable("mapping_variable", 
+            Annotation.create $loc), value, Annotation.create $loc),
+            Annotation.create $loc)], Annotation.create $loc), 
+            Annotation.create $loc ) }
+
+181.     | var_name = ID PLUS PLUS { Affectation(Variable(var_name,
+            Annotation.create $loc), Binary_operator(Plus,
+            Variable(var_name, Annotation.create $loc),
+            Const_int(1, Annotation.create $loc),
+            Annotation.create $loc), Annotation.create $loc) }
+
+182.     | var_name = ID MINUS MINUS { Affectation(Variable(var_name,
+            Annotation.create $loc), Binary_operator(Minus, 
+            Variable(var_name, Annotation.create $loc), 
+            Const_int(1, Annotation.create $loc), 
+            Annotation.create $loc), Annotation.create $loc) }
+...
     \end{lstlisting}
 
-    Qui permetront de TODO.\\
+    (Nous vous invitons à regarder dans le fichier Parser.mly, le code y sera un peu plus lisible)\\
+    Ces modifications permettent d'ajouter 4 sucres syntaxique à notre langage :\\
 
-    Toutes ses modifications ont été testées dans le fichier programs/good\_examples/custom\_example\_EXTENSION.pix :\\
+    \begin{tabular}{| m{3cm} | m{7cm} | m{5cm} |}
+        \hline
+        Syntaxe & Description & Sortie \\
+        \hline
+        \begin{center}
+x++;
+        \end{center}
+        & Incrémente la valeur de la variable x de 1. Cette variable peut être de type Int ou Real. & 
+        \begin{center}
+Set(x, (x+1));
+        \end{center}\\
+        \hline
+        \begin{center}
+x--;
+        \end{center}
+        & Décrémente la valeur de la variable x de 1. Cette variable peut être de type Int ou Real. & 
+        \begin{center}
+Set(x, (x-1));
+        \end{center}\\
+        \hline
+        \begin{center}
+Pow2(x);
+        \end{center}
+        & Retourne la valeur de x à la puissance 2. Cette variable peut être de type Int ou Real. & 
+        \begin{center}
+Set(x, (x*x));
+        \end{center}\\
+        \hline
+        {\tiny
+        \begin{center}
+MapBinop(list, 
+         operation, 
+         value);
+        \end{center}
+        }
+        & Applique une opération binaire à chaque élément de la liste. & 
+        {\tiny
+        \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+Foreach mapping_variable In l
+    $<
+        Set(mapping_variable, 
+        (mapping_variable operation value));
+    >$;
+        \end{lstlisting}
+        }\\
+        \hline
+    \end{tabular}\\
+
+Ces modifications ont été testées dans le fichier programs/good\_examples/custom\_example\_EXTENSION.pix :\\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        TODO (content of custom_example_EXTENSION.pix)
+$<
+    List(Int) : l;
+
+    Set(l, [2, 8, 0]);
+    
+    MapBinop(l+3);
+    Print(l);
+
+    Int : x;
+    Real : y;
+    Set(x, 2);
+    Set(y, 3.3);
+    Set(x, Pow2(x));
+    Set(y, Pow2(y));
+    Print(x);
+    Print(y);
+
+    While ( x <> 0 )
+    $<
+        x--;
+        y++;
+        Print(x);
+        Print(y);
+    >$
+    
+>$
     \end{lstlisting}
 
     Cela renvoie bien le résultat attendu : \\
 
     \begin{lstlisting}[language=C, basicstyle=\ttfamily]
-        TODO (result of custom_example_EXTENSION.pix)
+Code renvoye:
+$<
+    List(Int) : l;
+    Set(l, [2, 8, 0]);
+    Foreach mapping_variable In l
+      $<
+          Set(mapping_variable, (mapping_variable+3))
+      >$;
+    Print l;
+    Int : x;
+    Real : y;
+    Set(x, 2);
+    Set(y, 3.3);
+    Set(x, (x*x));
+    Set(y, (y*y));
+    Print x;
+    Print y;
+    While ((x <> 0))
+      $<
+          Set(x, (x-1));
+          Set(y, (y+Real_of_int(1)));
+          Print x;
+          Print y;
+          
+      >$
+>$
+    \end{lstlisting}
+
+    \begin{lstlisting}[language=C, basicstyle=\ttfamily]
+Output:
+[5,11,3]
+4
+10.890000
+3
+11.890000
+2
+12.890000
+1
+13.890000
+0
+14.890000      
     \end{lstlisting}
 
     \newpage
 
 \chapter{Difficultées rencontrées}
 
-   \quad Nous n'avons pas rencontré de difficultées particulières lors de l'implémentation du lexer, du parser ou de la passe renommage.\\
+   \quad Nous n'avons pas rencontré de difficultées particulières lors de l'implémentation du lexer, du parser, de la passe renommage et de l'extension.\\
 
     \section{Passe simplification de terme}
 
-    \section{Extension}
+    Pour le cast implicite, nous n'avons pas trouvé de meilleur solution que d'utilise Lexing.dummy\_pos pour creer une nouvelle position vide pour la nouvelle annotation.\\
+
 
 \end{document}
